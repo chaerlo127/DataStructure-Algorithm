@@ -1,4 +1,4 @@
-package wweek10;
+package class1.wweek10;
 
 import java.util.Arrays;
 import java.util.Stack;

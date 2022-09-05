@@ -1,4 +1,4 @@
-package week1;
+package class1.week1;
 
 public class Euclidean {
 	// 최대공약수 구하기 algorithm

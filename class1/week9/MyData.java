@@ -1,4 +1,4 @@
-package week9;
+package class1.week9;
 
 public class MyData {
 	private String key; // 달라야 함.

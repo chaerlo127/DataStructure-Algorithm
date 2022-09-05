@@ -1,5 +1,4 @@
- package week6;
-
+package class1.week6;
 public class NodeDL {
 	 MyData data;
 	 NodeDL left, right;

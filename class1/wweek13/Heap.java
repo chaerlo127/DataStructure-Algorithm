@@ -1,5 +1,4 @@
-package wweek13;
-
+package class1.wweek13;
 import java.util.ArrayList;
 
 public class Heap {

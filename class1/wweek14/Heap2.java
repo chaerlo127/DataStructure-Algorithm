@@ -1,4 +1,4 @@
-package wweek14;
+package class1.wweek14;
 
 import java.util.ArrayDeque;
 import java.util.Deque;

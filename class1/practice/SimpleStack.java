@@ -1,5 +1,4 @@
-package practice;
-
+package class1.practice;
 public class SimpleStack {
 	private int[] stack;
 	private int top;

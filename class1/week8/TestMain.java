@@ -1,4 +1,4 @@
-package midTermEx;
+package class1.week8;
 // 1번 문제의 main
 
 public class TestMain {

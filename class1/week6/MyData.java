@@ -1,5 +1,4 @@
-package week6;
-
+package class1.week6;
 public class MyData {
 	private String key; // 달라야 함.
 	private int value; // 같을 수 있음

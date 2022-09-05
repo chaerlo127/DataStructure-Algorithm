@@ -1,4 +1,4 @@
-package wweek12;
+package class1.wweek12;
 
 public class BinarySearchTree {
 	

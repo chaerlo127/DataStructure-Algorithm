@@ -1,5 +1,4 @@
-package week5;
-
+package class1.week5;
 public class MyArrayList1 {
 	int initCapacity = 10;
 	int[] elementData;

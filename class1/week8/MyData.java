@@ -1,4 +1,4 @@
-package midTermEx;
+package class1.week8;
 
 public class MyData {
 	private String key; // 달라야 함.

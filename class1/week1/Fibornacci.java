@@ -1,4 +1,4 @@
-package week1;
+package class1.week1;
 
 public class Fibornacci {
 	static int count = 0;

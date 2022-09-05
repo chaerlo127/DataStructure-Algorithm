@@ -1,5 +1,4 @@
-package week5;
-
+package class1.week5;
 public class MyLLMain {
 
 	public static void main(String[] args) {

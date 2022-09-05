@@ -1,5 +1,4 @@
-package week6;
-
+package class1.week6;
 public class MyLinkedList2 {
 	private NodeDL head, tail;
 	private int size;

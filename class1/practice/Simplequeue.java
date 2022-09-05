@@ -1,4 +1,4 @@
-package practice;
+package class1.practice;
 
 
 public class Simplequeue {

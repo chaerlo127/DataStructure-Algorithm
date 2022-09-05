@@ -1,5 +1,4 @@
-package week2;
-
+package class1.week2;
 public class MaxSum {
 	int count = 0;
 	int [][] maze;

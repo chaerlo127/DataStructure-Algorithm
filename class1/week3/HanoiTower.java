@@ -1,4 +1,4 @@
-package week3;
+package class1.week3;
 
 public class HanoiTower {
 	public void move(int n, int i, int j) { // i = from, j = to

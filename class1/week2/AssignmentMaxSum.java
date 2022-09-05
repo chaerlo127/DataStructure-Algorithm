@@ -1,5 +1,4 @@
-package week2;
-
+package class1.week2;
 public class AssignmentMaxSum {
 	// 오른쪽과 아래 방향으로만 이동하지 않고, 대각성 이동이 허용된 경우
 	int count = 0;

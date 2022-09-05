@@ -1,5 +1,4 @@
-package week3;
-
+package class1.week3;
 public class HanoiTowerIteration_notClass {
 	// A structure to represent a stack
 	class Stack {

@@ -1,4 +1,5 @@
-package wweek11;
+package class1.wweek11;
+
 
 public class Traverse {
 	

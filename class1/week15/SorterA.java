@@ -1,5 +1,4 @@
-package week15;
-
+package class1.week15;
 import java.util.Random;
 
 public class SorterA {

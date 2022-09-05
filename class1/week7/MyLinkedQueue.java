@@ -1,4 +1,4 @@
-package week7;
+package class1.week7;
 
 public class MyLinkedQueue {
 	MyLinkedList3 queue;

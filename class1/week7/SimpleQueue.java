@@ -1,4 +1,4 @@
-package week7;
+package class1.week7;
 
 // 동적 구조
 public class SimpleQueue {

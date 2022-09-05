@@ -1,9 +1,7 @@
-package practice;
+package class1.practice;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-
-import wweek14.Heap2;
 
 public class HeapMemory2 {
 	class Node{
@@ -149,18 +147,18 @@ public class HeapMemory2 {
 	}
 
 	public static void main(String[] args) {
-		Heap2 h = new Heap2();
-		for (int i = 0; i < 26; i++) {
-			h.insert((char)((int)'A'+i));
-		}
-		System.out.println("\n Heap Created: ");
-		h.showHeap();
-		System.out.println("\n Sort [Max.heap]");
-		Character c;
-		while((c=h.delete())!=null) {
-			System.out.print(c+ ": ");
-			h.showHeap();
-		}
+//		Heap2 h = new Heap2();
+//		for (int i = 0; i < 26; i++) {
+//			h.insert((char)((int)'A'+i));
+//		}
+//		System.out.println("\n Heap Created: ");
+//		h.showHeap();
+//		System.out.println("\n Sort [Max.heap]");
+//		Character c;
+//		while((c=h.delete())!=null) {
+//			System.out.print(c+ ": ");
+//			h.showHeap();
+//		}
 
 	}
 

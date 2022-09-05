@@ -1,4 +1,4 @@
-package wweek13;
+package class1.wweek13;
 
 public class BinarySearchTree_Test {
 	// best case : O(logn)

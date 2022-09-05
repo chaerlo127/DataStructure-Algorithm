@@ -1,5 +1,4 @@
-package week7;
-
+package class1.week7;
 // array는 의미가 없음 
 // circle queue로 변경
 public class PreSimpleQueue {

@@ -1,4 +1,4 @@
-package week7;
+package class1.week7;
 
 import java.util.ArrayDeque;
 import java.util.Queue;

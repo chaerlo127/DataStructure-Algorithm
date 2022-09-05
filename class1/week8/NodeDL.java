@@ -1,4 +1,4 @@
- package midTermEx;
+package class1.week8;
 
 public class NodeDL {
 	 MyData data;
