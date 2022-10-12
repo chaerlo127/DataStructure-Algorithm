@@ -114,15 +114,15 @@ public class BinarySearchTree_Test {
 		}
 		//case 2 : 1 child
 		if(node.left == null || node.right == null) {
-			if(node.right!=null) {
-				if(node==node.parent.left) {
+			if(node.right!=null) { // node의 right에만 값이 있으면
+				if(node==node.parent.left) { // node가 parent의 왼쪽 자식인 경우
 					node.parent.left = node.right;
 					node.right.parent = node.parent;
 				}else { // node == node.parent.right
 					node.parent.right = node.right;
 					node.right.parent = node.parent;
 				}
-			}else { // node.left != null
+			}else { // node.left != null  node left에만 값이 있는 경우
 				if(node==node.parent.left) {
 					node.parent.left = node.left;
 					node.left.parent = node.parent;
@@ -136,9 +136,9 @@ public class BinarySearchTree_Test {
 		//case 3 : 2 children <= successor/predecessor
 		// recursion
 		else {
-			Node q = this.successor(node);
-			node.data = q.data;
-			delete(node.right, q.data);
+			Node q = this.successor(node); // successor 로 변경할 값 가져오기
+			node.data = q.data; 
+			delete(node.right, q.data); // node의 right로 가서 q 데이터가 있는 노드를 지워라
 			
 //			Node q = this.predecessor(node);
 //			node.data = q.data;

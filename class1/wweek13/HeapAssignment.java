@@ -2,6 +2,9 @@ package class1.wweek13;
 
 import java.util.ArrayList;
 
+// heap은 자식보다 부모가 무조건 size가 커야하는 규칙을 갖고 있음. 
+// 자식이 부모보다 크다면 heapifyUpward를 통해 sort를 진행해줘야 함. 
+
 public class HeapAssignment {
 	ArrayList<Character> heap = new ArrayList<>();
 	
@@ -34,20 +37,21 @@ public class HeapAssignment {
 		heap.set(j, temp);
 	}
 
+	// 첫 번째 노드 delete
 	public Character delete() {
 		int deleteIndex = heap.size();
 
 		if(heap.get(1)!=null) {
 			Character delete = heap.get(1);
-			heap.set(1, heap.get(deleteIndex-1));
+			heap.set(1, heap.get(deleteIndex-1)); 
 			heapifyDownward(1);
 			heap.remove(deleteIndex-1);
 			showHeap();
 			return delete;
 		}
-		
 		return null;
 	}
+	
 	private void heapifyDownward(int i) {
 		int left = i *2;
 		int right = i * 2 + 1;

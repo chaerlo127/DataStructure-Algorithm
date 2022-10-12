@@ -18,6 +18,7 @@ public class Heap {
 		showHeap();
 	}
 	
+	// 부모보다 크면 부모와 자리 변경
 	private void heapifyUpward(int i) {
 		int parentIndex = i/2;
 		if(parentIndex>0) {
@@ -34,19 +35,23 @@ public class Heap {
 		heap.set(j, temp);
 	}
 
+	/*
+	 * Heap의 delete는 root를 삭제하는 패턴을 갖고 있으며 마지막 노드를 root로 옮긴 이후에 heapifyDownward를 진행한다.
+	 * */
 	public Character delete() {
 		if(heap.size() <= 1) {
 			return null;
 		}
-		char retValue = heap.get(1);
+		char retValue = heap.get(1); // root 
 		if(heap.size() == 2) {
-			heap.remove(1);
+			heap.remove(1); 
 		}else {
 			heap.set(1, heap.remove(heap.size()-1));
 			heapifyDownward(1);
 		}
 		return retValue;
 	}
+	
 	private void heapifyDownward(int i) {
 		int bigger = 2*i;
 		if(bigger >= heap.size()) return;

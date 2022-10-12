@@ -3,6 +3,7 @@ package class1.wweek14;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
+// LinkedList로 Heap 구현
 public class Heap2 {
 	
 	class Node {
@@ -29,22 +30,22 @@ public class Heap2 {
 		heap = null;
 		last = null;
 	}
-	//
+	
 	public void insert(char x) {
 		Node pNext; // parent of new node
-		if(heap == null) {
+		if(heap == null) { // heap에 아무런 데이터도 없다면? 
 			heap = new Node(x, null, null, null);
 			last = heap;
 			pNext = null;
-		}else if(heap == last) {
+		}else if(heap == last) { // heap에 root만 있다면?
 			heap.left = new Node(x, null, null, heap);
 			last = heap.left;
 			pNext = heap;
-		}else if(last == last.parent.left) {
+		}else if(last == last.parent.left) { // 마지막 node가 부모의 왼쪽 자식이라면? 
 			last.parent.right = new Node(x, null, null, last.parent);
 			last = last.parent.right;
 			pNext = last.parent;
-		}else { //right
+		}else { //right 오른 쪽 자식이라면? 
 			pNext = last;
 			//pNext가 null이 아니거나, pNext parent의 right가 내가 아니거나
 			while (pNext.parent !=null && pNext != pNext.parent.left) {
