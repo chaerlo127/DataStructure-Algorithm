@@ -80,7 +80,7 @@ public class LCS0Assignment {
 		// return String, 가장 긴 LCS 문자 값 return
 		private String lcss(String a, int m, String b, int n) {
 			count++;
-			if (m == -1 || n == -1)
+			if (m == -1 || n == -1) // base 
 				return "";
 			else if (a.charAt(m) == b.charAt(n)) // 같다면
 				return lcss(a, m - 1, b, n - 1) + String.valueOf(a.charAt(m)); // 이전 결과물 + String
