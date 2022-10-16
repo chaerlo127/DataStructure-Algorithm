@@ -269,6 +269,94 @@ public class OpenAddressingLinear {
 		long afterTime = System.currentTimeMillis();
 		System.out.println("실행 시간(Millis time) : "+ (afterTime - beforeTime));
 	}
-
+//	private int hashFunction(int d) {
+//		// 곱하기방법
+//		double temp = (double) d * 0.6180339887;
+//		double res = temp - Math.floor(temp);
+//		return (int) (res * m);
+//	}
+//
+//	private int hashFunction2(int d) {
+//		// 곱하기방법
+//		double temp = (double) d * 0.8180339887;
+//		double res = temp - Math.floor(temp);
+//		return (int) (res * m);
+//	}
+//
+//	public int hashInsert(int d) {
+//		if (loadfactor() >= threshold)
+//			enlargeTable();
+//		int hashCode = hashFunction(d);
+//		nOfHops = 1;
+//		if (hTable[hashCode] == -1) {
+//			hTable[hashCode] = d;
+//			numberOfItems++;
+//			return nOfHops;
+//		} else { // Collision
+//			nOfHops++;
+//			int probeIndex = (hashCode + 1) % m;
+//			while (hTable[probeIndex] != -1 && hTable[probeIndex] != -999) {
+//				nOfHops++;
+//				i++;
+//				probeIndex = (probeIndex + i * hashFunction2(d)) % m;
+//				if (probeIndex == hashCode)
+//					return 0;
+//			}
+//			hTable[probeIndex] = d;
+//			numberOfItems++;
+//			return nOfHops;
+//		}
+//	}
+//
+//	public int hashSearch(int d) {
+//		int hashCode = hashFunction(d);
+//		nOfHops = 1;
+//		if (hTable[hashCode] == d) {
+//			hTable[hashCode] = d;
+//			numberOfItems++;
+//			return nOfHops;
+//		} else { // Collision
+//			nOfHops++;
+//			int probeIndex = (hashCode + 1) % m;
+//			while (hTable[probeIndex] != -1 && hTable[probeIndex] != d) {
+//				nOfHops++;
+//				i++;
+//				probeIndex = (probeIndex + i * hashFunction2(d)) % m;
+//				if (probeIndex == hashCode)
+//					return 0;
+//			}
+//			if (hTable[probeIndex] == d)
+//				return nOfHops;
+//			else
+//				return -nOfHops;
+//		}
+//	}
+//
+//	public int hashDelete(int d) {
+//		int hashCode = hashFunction(d);
+//		nOfHops = 1;
+//		if (hTable[hashCode] == d) {
+//			hTable[hashCode] = -999;
+//			numberOfItems--;
+//			return nOfHops;
+//		} else { // Collision
+//			nOfHops++;
+//			int probeIndex = (hashCode + 1) % m;
+//			while (hTable[probeIndex] != -1 && hTable[probeIndex] != d) {
+//				nOfHops++;
+//				i++;
+//				probeIndex = (probeIndex + i * hashFunction2(d)) % m;
+//				if (probeIndex == hashCode)
+//					return 0;
+//			}
+//			if (hTable[probeIndex] == d) {
+//				hTable[probeIndex] = -999;
+//				numberOfItems--;
+//				return nOfHops;
+//			} else
+//				return -nOfHops;
+//		}
+//	}
+	
 }
 
