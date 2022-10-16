@@ -34,7 +34,7 @@ public class OpenAddressingBase {
 		// 처음 위치까지 빈 곳을 못찾으면 -777을 return
 			int probeIndex  = (index+1)%m;
 			nOfHops++;
-			while(hTable[probeIndex]!=-1 ) {  // 완전하지 않은 코드-> 나중에 수정 예정
+			while(hTable[probeIndex]!=-1 || hTable[probeIndex]!=-999) {  // 완전하지 않은 코드-> 나중에 수정 예정 -> delete가 되면 -999이기 때문에 관련된 조건도 추가해줘야 함.
 				probeIndex  = (probeIndex+1)%m;
 				nOfHops++;
 				if (probeIndex==index)  // 한바퀴를 다 돌았는데 빈 곳이 없는 경우
@@ -72,7 +72,7 @@ public class OpenAddressingBase {
 			if (hTable[probeIndex]==value)
 				return probeIndex;
 			else
-				return -888;  // Not found를 의미
+				return -888;  // Not found를 의미, htable[probeIndex] == -1
 		}
 	}
 	
@@ -80,7 +80,7 @@ public class OpenAddressingBase {
 		int index = hashFunction(value);
 		nOfHops =1;
 		if (value==hTable[index]) {
-			hTable[index]=-1; // 완전하지 않은 코드-> 나중에 수정 예정
+			hTable[index]=-999; // 완전하지 않은 코드-> 나중에 수정 예정, 수정 완료
 			return index;
 		}
 		else {
@@ -98,11 +98,13 @@ public class OpenAddressingBase {
 					return -888;  // Not found를 의미
 			}
 			if (hTable[probeIndex]==value) {
-				hTable[probeIndex]=-1; // 완전하지 않은 코드-> 나중에 수정 예정
+				hTable[probeIndex]=-999; // 완전하지 않은 코드-> 나중에 수정 예정, 수정 완료
+				// delete 된 것은 -1과 구분을 하기 위해서 -999로 한다. deleter를 해도 -1인 경우에는 삭제 된 것이 저장 되어 있지 않은 코드로 파악 되어, 
+				// delete, search 에서 문제가 발생할 수 있기 때문이다.
 				return probeIndex;
 			}
 			else
-				return -888; // Not found를 의미
+				return -888; // Not found를 의미, hTable[probeIndex]!=-1
 		}
 	}
 

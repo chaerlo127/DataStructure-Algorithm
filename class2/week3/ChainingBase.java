@@ -39,12 +39,8 @@ public class ChainingBase {
 		int index = hashFunction(d);
 		HashNode newNode = new HashNode(d);
 		// hTable[index]의 맨 앞으로 insert하는 code를 추가하시오.
-		if(hTable[index]==null) {
-			hTable[index]= newNode;
-		}else {
-			newNode.next = hTable[index];
-			hTable[index] = newNode;
-		}
+		newNode.next = hTable[index];
+		hTable[index] = newNode;
 		/////////////////////////////////////
 		nOfHops=1;
 		return nOfHops;  // numberOfHops =1 always..
@@ -58,9 +54,11 @@ public class ChainingBase {
 		while(p!=null) {
 			// p의 link를 따라가며 p.key==d 를 찾고, 
 			// link를 따라갈 때마다 nOfHops를 증가시키는 code를 추가하시오.
-			if(p.key == d) break;
-			else p = p.next;
-			nOfHops++;
+			if(p.key == d) return nOfHops;
+			else {
+				p = p.next;
+				nOfHops++;
+			}
 			/////////////////////////////////////
 		}
 		return -nOfHops; // -nOfHops= 검색 실패시 조사 횟수
@@ -85,9 +83,13 @@ public class ChainingBase {
 			// link를 따라갈 때마다 nOfHops를 증가시키는 code를 추가하시오.
 			if(q.key == d) {
 				p.next = q.next;
-				break;
-			}else q = q.next;
-			nOfHops++;
+				return nOfHops;
+			}else {
+				p = q;
+				q = q.next;
+				nOfHops++;
+			}
+
 			/////////////////////////////////////
 		}
 		return -nOfHops; 
