@@ -16,13 +16,13 @@ public class AVLTree extends BST {
 		Node z = null;  
 		Node w = null;
 
-		while (x!=null) { 
+		while (x!=null) { // null 은 c의 값을 가진 node가 없어 삭제할 노드가 없다는 것을 의미
 
 			if (!isBalanced(x)) {
 
-				if (height(x.left)>=height(x.right)) {
+				if (height(x.left)>=height(x.right)) { // left 쪽으로 치우쳐져 있다면
 					y = x.left;
-					if (y.left!=null) {  // LL
+					if (y.left!=null) {  // LL : y의 Left에 값이 있다면
 						System.out.println(">>>  LL");
 
 						z = y.left;

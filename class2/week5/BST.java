@@ -4,6 +4,9 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 // binary search tree
+// preOrder : 전위 순회 (가운데 먼저) M -> L -> R
+// inOrder : 중위 순회 (가운데가 두번째) L -> M -> R
+// postOrder : 후위 순회 (가운데가 마지막) L -> R -> M
 public class BST {
 
 	public class Node {
@@ -39,9 +42,9 @@ public class BST {
 		if (root==null) {
 			return root = new Node(x);
 		}
-		else if (x<root.data)
+		else if (x<root.data) // x가 root data보다 값이 작다면? 왼 쪽
 			return insert(root.left, root, x);
-		else if (x>root.data)
+		else if (x>root.data) // x가 root data보다 값이 크다면? 오른 쪽
 			return insert(root.right, root, x);	
 		else { //   if (search(root, x)!=null) 
 			System.out.println("\n>>> "+x+" : Duplication is not allowed");	
@@ -51,20 +54,21 @@ public class BST {
 	
 	// overloading을 해서 같은 method지만 parameter가 다른 method
 	private Node insert(Node p, Node pParent, char x) {
-		if (p==null) {
+		if (p==null) { // 부모의 왼 쪽/오른 쪽에 값이 없는 상태라면
 			Node temp = new Node(x);
 			temp.parent=pParent;
-			if (pParent.data>x)
-				pParent.left = temp;
-			else
-				pParent.right = temp;
+			if (pParent.data>x) // 부모보다 값이 작다면
+				pParent.left = temp; // 왼쪽
+			else // 크다면 
+				pParent.right = temp; // 오른 쪽
 			return temp;
 		}
-		else if (x<p.data)
+		// 값이 있는 상태라면
+		else if (x<p.data) // p보다 x가 더 작으면 -> 왼쪽
 			return insert(p.left, p, x);
-		else if (x>p.data)
+		else if (x>p.data) // p보다 x가 더 크다면 -> 오른 쪽
 			return insert(p.right, p, x);
-		else return null;
+		else return null; // p가 x와 같다면 null return
 
 	}
 
@@ -87,8 +91,9 @@ public class BST {
 		else 
 			return delete(root, x);
 	}
+	
 	public Node delete(Node startNode, char x) {
-		Node v = search(startNode,x);
+		Node v = search(startNode, x);
 		if (v==null)  // not found
 			return null;
 
@@ -107,7 +112,7 @@ public class BST {
 		}
 		// case 2 : 1 child
 		if (v.left==null || v.right==null) {
-			if (v.right!=null) {
+			if (v.right!=null) { // v의 오른 쪽에 자식이 있다면? 
 				if (v==v.parent.left) {
 					v.parent.left = v.right;
 					v.right.parent = v.parent;
@@ -117,7 +122,7 @@ public class BST {
 					v.right.parent = v.parent;					
 				}
 			}
-			else { // v.left != null
+			else { // v.left != null v의 왼 쪽에 자식이 있다면? 
 				if (v==v.parent.left) {
 					v.parent.left = v.left;
 					v.left.parent = v.parent;
@@ -145,7 +150,7 @@ public class BST {
 		//		}
 	}
 
-	private Node successor(Node v) {
+	private Node successor(Node v) { // right 자식에서 left 아래로 내려감. 
 		if (v==null)
 			return null;
 
@@ -154,7 +159,8 @@ public class BST {
 			p=p.left;
 		return p;
 	}
-	private Node predecessor(Node v) {
+	
+	private Node predecessor(Node v) { // left 자식에서 right 아래로 내려감. 1
 		if (v==null)
 			return null;
 		Node p = v.left;
@@ -162,6 +168,7 @@ public class BST {
 			p=p.right;
 		return p;
 	}
+	
 	public void showTree() {
 		if (root==null)
 			return;
@@ -175,15 +182,15 @@ public class BST {
 			System.out.print("Depth-level "+depthLevel+"  :  ");
 			
 			// 현재 있는 걸 다 꺼내서 temp 에 저장
-			while (que.peek()!=null) {
+			while (que.peek()!=null) { // que에 값이 남이 있다면? 
 				temp.add(que.poll());
 			}
 			while(temp.peek()!=null) {
 				Node e = temp.poll();
 				System.out.print(e.toString()+" ");
-				if (e.left!=null)
+				if (e.left!=null) // e가 root 였다면, e의 left 저장
 					que.add(e.left);
-				if (e.right!=null)
+				if (e.right!=null) // e가 root 였다면, e의 right 저장
 					que.add(e.right);
 			}
 			System.out.println();
@@ -205,7 +212,22 @@ public class BST {
 		else
 			return inorder(v.left)+" "+v.toString()+" "+inorder(v.right);
 	}
-
+	//postOrder 상태
+	public void preorder(Node node) {
+		if(node != null) {
+			System.out.print(node.data + ", ");
+			preorder(node.left);
+			preorder(node.right);
+		}
+	}
+	
+	public void postorder(Node node) {
+		if(node != null) {
+			postorder(node.left);
+			postorder(node.right);
+			System.out.print(node.data+ ", ");
+		}
+	}
 	public int height() {    // getHeight -> height
 		return height(root);
 	}

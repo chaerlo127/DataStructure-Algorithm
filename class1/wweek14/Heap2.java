@@ -47,7 +47,7 @@ public class Heap2 {
 			pNext = last.parent;
 		}else { //right 오른 쪽 자식이라면? 
 			pNext = last;
-			//pNext가 null이 아니거나, pNext parent의 right가 내가 아니거나
+			//pNext가 null이 아니거나, pNext가 parent 의 left면
 			while (pNext.parent !=null && pNext != pNext.parent.left) {
 				pNext = pNext.parent;
 			}
