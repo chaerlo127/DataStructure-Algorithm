@@ -1,25 +1,28 @@
 package class2.week6;
 
 public class KnapsackAssignment {
+	/*
+	 * recursion의 성능은  
+	 * */
 	int capacity, nOfItems ; 
 	int [] weight, price ;
 	int [][] dpt; // dynamic programming table
 	public KnapsackAssignment(int m, int [][] in) {
 		capacity = m;
 		nOfItems=in.length;
-		price=new int[nOfItems+1];
+		price=new int[nOfItems+1]; // 맨 위와 왼쪽 끝에 0을 넣어줘야지 dp table 작성이 편해서 넣어줌.
 		weight=new int[nOfItems+1];
-		for (int i=0;i<nOfItems;i++) {
+		for (int i=0;i<nOfItems;i++) { 
 			price[i+1]= in[i][0];
 			weight[i+1]= in[i][1];
 		}
 	}
 	public void initDP() {
-		dpt = new int[nOfItems+1][capacity+1];  
+		dpt = new int[nOfItems+1][capacity+1];  // table에 0은 값이 없게 두도록 저장하기 위해서 item의 개수, 저장할 price의 최대 용량
 	}
 	
 	public void showDP() {
-		for (int i=1 ; i<=nOfItems ; i++) {
+		for (int i=1 ; i<=nOfItems ; i++) { // 0인 부분을 표현할 필요가 없음
 			for (int j=1; j<=capacity; j++) {
 				System.out.printf("%4d", dpt[i][j]);
 			}
@@ -29,6 +32,9 @@ public class KnapsackAssignment {
 	
 	public int findMax() {
 		return findMax(capacity, nOfItems);
+		// 배열 생성시, nOfItems + 1을 하지 않았다면, 여기서 원래 nOfItems - 1을 해줘야 함.
+		// 원래 x4가 array index 3에 들어가 있을 거니까
+		// 현재 array 배열 숫자와 x1 ~ x4까지의 숫자를 동일하게 하기 위해 index 0에 데이터를 넣어두지 않음.
 	}
 	
 	private int findMax(int m, int n) {
@@ -61,7 +67,6 @@ public class KnapsackAssignment {
 	}
 	
 	public int findMaxDP2() {
-
 		for (int i = 1; i <= nOfItems; i++) {
 			for(int j = 1; j <= capacity; j++) {
 				if(weight[i] <= j)
@@ -84,6 +89,7 @@ public class KnapsackAssignment {
 		System.out.println("Max. Value (Recursion+DP) =  "+me.findMaxDP());
 		me.showDP();
 		me.initDP();
+		// 앞에서부터 다 채우는 것
 		System.out.println("Max. Value (DP Iteration) =  "+me.findMaxDP2());
 		me.showDP();
 	}

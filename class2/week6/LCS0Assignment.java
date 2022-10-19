@@ -4,6 +4,7 @@ public class LCS0Assignment {
 	   int [][] table;
 	   String x;
 	   int count;
+	   int [][] dptable;
 
 		public void setCountReset() {
 			this.count = 0;
@@ -29,22 +30,46 @@ public class LCS0Assignment {
 			int m = a.length();
 			int n = b.length();
 
+			// String a, a.length -1, String b, b.length -1
 			return lcs(a, m - 1, b, n - 1);
 		}
+		
+		public int lcsDP2(String a, String b) {
+			int m = a.length();
+			int n = b.length();
+			dptable = new int[m][n];
+			// String a, a.length -1, String b, b.length -1
+			return lcsDP2(a, m-1, b, n-1);
+		}
 
+		private int lcsDP2(String a, int m, String b, int n) {
+			count++;//			
+			if (m == -1 || n == -1) // length가 -1이면
+				return 0;
+			else if (a.charAt(m) == b.charAt(n)) {// 같다면, 마지막 원소들이 같다면
+				this.dptable[m][n] = lcsDP2(a, m - 1, b, n - 1) + 1;
+				return this.dptable[m][n];
+			}
+			 // 이전 결과물 + 1, 이전 결과물에 1을 더해준 것이 가장 큰 길이
+			else {
+				dptable[m][n] = Math.max(lcsDP2(a, m - 1, b, n),lcsDP2(a, m, b, n-1));
+				return this.dptable[m][n];
+			} // 본인 제외(본인-1) 하고의 값과 본인을 포함하고 다른 것의 -1을 한 값
+		}
+   
 		// dynamic programming
 		// assignment 
-		public int lcsDP(String a, String b) {
+		public int lcsIterBU(String a, String b) {
 			char[] m = a.toCharArray();
 			char[] n = b.toCharArray();
 			this.table = new int[m.length+1][n.length+1];
 
-			return lcsDP(m, m.length, n, n.length);
+			return lcsIterBU(m, m.length, n, n.length);
 		}
 
-		// dynamic programming
+		// dynamic programming Iteration : Bottom - up 방식
 		// assignment 
-		private int lcsDP(char[] a, int m, char[] b, int n) {
+		private int lcsIterBU(char[] a, int m, char[] b, int n) {
 			for(int i = 0; i<=m ; i++) {
 				for(int j = 0 ; j <= n; j++) {
 					count++;
@@ -59,13 +84,13 @@ public class LCS0Assignment {
 			}
 			return this.table[m][n];
 		}
-
+	
 		private int lcs(String a, int m, String b, int n) {
 			count++;
-			if (m == -1 || n == -1)
+			if (m == -1 || n == -1) // length가 -1이면 
 				return 0;
-			else if (a.charAt(m) == b.charAt(n)) // 같다면
-				return lcs(a, m - 1, b, n - 1) + 1; // 이전 결과물 + 1
+			else if (a.charAt(m) == b.charAt(n)) // 같다면, 마지막 원소들이 같다면
+				return lcs(a, m - 1, b, n - 1) + 1; // 이전 결과물 + 1, 이전 결과물에 1을 더해준 것이 가장 큰 길이
 			else
 				return Math.max(lcs(a, m - 1, b, n), lcs(a, m, b, n - 1)); // 본인 제외(본인-1) 하고의 값과 본인을 포함하고 다른 것의 -1을 한 값
 		}
@@ -91,19 +116,48 @@ public class LCS0Assignment {
 					return lcss(a, m, b, n - 1);
 				}
 		}
+		
+		public void showDPIteration() {
+			for (int i=1 ; i<this.table.length; i++) { // 0인 부분을 표현할 필요가 없음
+				for (int j=1; j<table[0].length; j++) {
+					System.out.printf("%4d", table[i][j]);
+				}
+				System.out.println();
+			}
+		}
+		
+		public void showDPRecursion() {
+			for (int i=1 ; i<this.dptable.length; i++) { // 0인 부분을 표현할 필요가 없음
+				for (int j=1; j<dptable[0].length; j++) {
+					System.out.printf("%4d", dptable[i][j]);
+				}
+				System.out.println();
+			}
+		}
+		public static void main(String[] args) {
+			String a = "abcdbcdad";
+			String b = "bcdadcb";
 
-	   public static void main(String[] args) {
-	      String a= "abcdbcdad";
-	      String b= "bcdadcb";
-	      
 	      LCS0Assignment s = new LCS0Assignment();
+	      
+
+	
 	      s.setVal(a);
-	      System.out.println("Longest Common Subsequence  Length of  "+a+" and "+b+" is  :  "+s.lcs(b));
+	      // Recursion DP
+	      System.out.println("Longest Common Subsequence  Length of  "+a+" and "+b+" is  :  "+s.lcs(b) + " Count: " + s.getCount());
 	      s.setCountReset();
-	      System.out.println("Longest Common Subsequence  Length of  "+a+" and "+b+" DP is  :  "+s.lcsDP(a, b)+ " Count: " + s.getCount());
+	      // Iteration
+	      System.out.println("Longest Common Subsequence  Length of  "+a+" and "+b+" DP is  :  "+s.lcsIterBU(a, b)+ " Count: " + s.getCount());
+	      s.showDPIteration();
 	      s.setCountReset();
+	      // Recursion DP with DP Table -> Table에 값을 저장 함. 
+	      System.out.println("Longest Common Subsequence  Length of  "+a+" and "+b+" DP is  :  "+s.lcsDP2(a, b)+ " Count: " + s.getCount());
+	     s.showDPRecursion();
+	      s.setCountReset();
+	      // Recursion DP
 	      System.out.println("Longest Common Subsequence  Length of  "+a+" and "+b+" is  :  "+s.lcs(a, b) + " Count: " + s.getCount());
 	      s.setCountReset();
+	      // Recursion String
 	      System.out.println("Longest Common Subsequence  String of  "+a+" and "+b+" is  :  "+s.lcss(a, b));
 	      
 	   }

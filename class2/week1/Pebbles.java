@@ -130,6 +130,15 @@ public class Pebbles {
 		}
 	}
 	
+	public void showDP() {
+		for (int i=1 ; i<this.memo.length; i++) { // 0인 부분을 표현할 필요가 없음
+			for (int j=1; j<memo[0].length; j++) {
+				System.out.printf("%4d", memo[i][j]);
+			}
+			System.out.println();
+		}
+	}
+	
 	// p가 세로, i가 가로 
 	private int aPatternValue(int i, int p) {
 		int retVal = 0;
@@ -158,6 +167,8 @@ public class Pebbles {
 			System.out.printf(">>> %3d : [Recursion] %3d Count = %-10d", i, myPeb.maxPebble(i), myPeb.getCount());
 			myPeb.reset();
 			System.out.printf("  >>> %3d : [DynamicProg.] %3d Count = %-10d", i, myPeb.maxPebbleDP(i), myPeb.getCount());
+			System.out.println();
+			myPeb.showDP();
 			myPeb.reset();
 			System.out.printf("  >>> %3d : [Iteration] %3d Count = %-10d%n", i, myPeb.maxPebbleIter(i), myPeb.getCount());
 		}
