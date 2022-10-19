@@ -109,12 +109,15 @@ public class LCS0Assignment {
 				return "";
 			else if (a.charAt(m) == b.charAt(n)) // 같다면
 				return lcss(a, m - 1, b, n - 1) + String.valueOf(a.charAt(m)); // 이전 결과물 + String
-			else
-				if(lcss(a, m - 1, b, n).length()>lcss(a, m, b, n - 1).length()) {
+			else {
+				String tempA = lcss(a, m - 1, b, n);
+				String tempB = lcss(a, m, b, n - 1);
+				if (tempA.length() > tempB.length()) {
 					return lcss(a, m - 1, b, n);
-				}else {
+				} else {
 					return lcss(a, m, b, n - 1);
 				}
+			}
 		}
 		
 		public void showDPIteration() {
