@@ -5,6 +5,7 @@ public class LCS0Assignment {
 	   String x;
 	   int count;
 	   int [][] dptable;
+	   String[][] dpStringTable;
 
 		public void setCountReset() {
 			this.count = 0;
@@ -120,6 +121,34 @@ public class LCS0Assignment {
 			}
 		}
 		
+		// String return DP Table
+		public String lcssDP(String a, String b) {
+			int m = a.length();
+			int n = b.length();
+			this.dpStringTable = new String [m][n];
+			return lcssDP(a, m - 1, b, n - 1);
+		}
+
+		private String lcssDP(String a, int m, String b, int n) {
+			count++;
+			if (m == -1 || n == -1) // base
+				return "";
+			else if (a.charAt(m) == b.charAt(n)) {
+				this.dpStringTable[m][n] = lcssDP(a, m - 1, b, n - 1) + String.valueOf(a.charAt(m)); // 이전 결과물 + String
+				return this.dpStringTable[m][n];// 같다면
+			}
+			else {
+				String tempA = lcssDP(a, m - 1, b, n);
+				String tempB = lcssDP(a, m, b, n - 1);
+				if (tempA.length() > tempB.length()) {
+					dpStringTable[m][n] = tempA;
+				} else {
+					dpStringTable[m][n] = tempB;
+				}
+				return dpStringTable[m][n];
+			}
+		}
+		
 		public void showDPIteration() {
 			for (int i=1 ; i<this.table.length; i++) { // 0인 부분을 표현할 필요가 없음
 				for (int j=1; j<table[0].length; j++) {
@@ -129,10 +158,20 @@ public class LCS0Assignment {
 			}
 		}
 		
+		
 		public void showDPRecursion() {
 			for (int i=1 ; i<this.dptable.length; i++) { // 0인 부분을 표현할 필요가 없음
 				for (int j=1; j<dptable[0].length; j++) {
 					System.out.printf("%4d", dptable[i][j]);
+				}
+				System.out.println();
+			}
+		}
+		
+		public void showDPStringRecursion() {
+			for (int i=1 ; i<this.dpStringTable.length; i++) { // 0인 부분을 표현할 필요가 없음
+				for (int j=1; j<dpStringTable[0].length; j++) {
+					System.out.printf("%4s", dpStringTable[i][j]);
 				}
 				System.out.println();
 			}
@@ -162,6 +201,8 @@ public class LCS0Assignment {
 	      s.setCountReset();
 	      // Recursion String
 	      System.out.println("Longest Common Subsequence  String of  "+a+" and "+b+" is  :  "+s.lcss(a, b));
-	      
+	      s.setCountReset();
+	      System.out.println("Longest Common Subsequence  String of  "+a+" and "+b+" is  :  "+s.lcssDP(a, b));
+	      s.showDPStringRecursion();
 	   }
 	}
