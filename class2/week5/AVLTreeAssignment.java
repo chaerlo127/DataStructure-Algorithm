@@ -1,6 +1,6 @@
 package class2.week5;
 
-/*Height: O(log n)
+/*Height: O(log n) -> worst case에서도 log n
  *Insert: O(log n)
  *delete: O(log n)
  * 
@@ -17,7 +17,7 @@ public class AVLTreeAssignment extends BST {
 	// AVL Tree를 지울 때, 균형에 맞게 지우기 위함. 
 	public void AVLdelete(char c) {
 
-		Node x = delete(c);  // it returns parent node of the deleted node
+		Node x = delete(c);  // it returns parent node of the deleted node, 삭제된 노드의 부모 노드 불러오기
 		Node y = null;
 		Node z = null;  
 		Node w = null;
@@ -38,7 +38,7 @@ public class AVLTreeAssignment extends BST {
 						showTree();
 
 						if (w!=null)
-							System.out.println("> Rotate returns >> "+w.toString());
+							System.out.println("> Rotate returns >> "+w.toString()); // 데이터의 높이
 
 					}
 					else {  // LR

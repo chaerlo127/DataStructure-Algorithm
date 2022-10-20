@@ -62,6 +62,9 @@ public class DisjointSet {
 		if(p != p.parent) p.parent = findSetCompression(node.parent);
 		return p;
 	}
+	
+	// 경로 압축 Iteration 하기
+	
 
 	// rank를 고려한 union 
 	public DisjointSet union(DisjointSet other) {

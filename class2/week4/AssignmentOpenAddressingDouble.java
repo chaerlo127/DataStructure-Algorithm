@@ -33,19 +33,19 @@ public class AssignmentOpenAddressingDouble {
 	private void enlargeTable() {
 		int [] oldTable =hTable;
 		int oldSize = m;
-		m *= 2;                  //  ???
+		m *= 2;                  // table 저장소를 두배 늘려준다.
 		hTable = new int[m];
 		for (int i=0;i<m; i++)
 			hTable[i]=-1;
 		numberOfItems=0;
 		for (int i =0; i<oldSize;i++) { // rehashing
 			if (oldTable[i]>=0)   // -999?
-				quadInsert(oldTable[i]);
+				doubleInsert(oldTable[i]);
 		}
 	}
 	
 	
-	public int quadInsert(int d) {
+	public int doubleInsert(int d) {
 		if (loadfactor()>=threshold) {
 			System.out.println(">>>  Hash Table is Enlarged !!");
 			System.out.print(">>>  Table Size : "+m+", Load Factor : "+loadfactor());
@@ -84,7 +84,7 @@ public class AssignmentOpenAddressingDouble {
 		}
 	}
 
-	public int quadSearch(int d) {
+	public int doubleSearch(int d) {
 		int index = hashFunction(d);
 		nOfHops =1;
 		if (hTable[index]==d) {
@@ -108,7 +108,7 @@ public class AssignmentOpenAddressingDouble {
 		}
 	}
 	
-	public int quadDelete(int d) {
+	public int doubleDelete(int d) {
 		int index = hashFunction(d);
 		nOfHops =1;
 		if (hTable[index]==d) {

@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 // binary search tree
+// 평균 검색 시간 : O(logn)
 // preOrder : 전위 순회 (가운데 먼저) M -> L -> R
 // inOrder : 중위 순회 (가운데가 두번째) L -> M -> R
 // postOrder : 후위 순회 (가운데가 마지막) L -> R -> M
@@ -46,7 +47,7 @@ public class BST {
 			return insert(root.left, root, x);
 		else if (x>root.data) // x가 root data보다 값이 크다면? 오른 쪽
 			return insert(root.right, root, x);	
-		else { //   if (search(root, x)!=null) 
+		else { //   x == root.data
 			System.out.println("\n>>> "+x+" : Duplication is not allowed");	
 			return null;
 		}
@@ -94,7 +95,7 @@ public class BST {
 	
 	public Node delete(Node startNode, char x) {
 		Node v = search(startNode, x);
-		if (v==null)  // not found
+		if (v==null)  // not found, AVL에서 method 를 사용하기 때문에 한 번 더 확인
 			return null;
 
 		// case 1 : no child
@@ -113,7 +114,7 @@ public class BST {
 		// case 2 : 1 child
 		if (v.left==null || v.right==null) {
 			if (v.right!=null) { // v의 오른 쪽에 자식이 있다면? 
-				if (v==v.parent.left) {
+				if (v==v.parent.left) { // v가 왼쪽 자식이라면
 					v.parent.left = v.right;
 					v.right.parent = v.parent;
 				}
@@ -123,7 +124,7 @@ public class BST {
 				}
 			}
 			else { // v.left != null v의 왼 쪽에 자식이 있다면? 
-				if (v==v.parent.left) {
+				if (v==v.parent.left) { // v가 왼쪽 자식이라면?
 					v.parent.left = v.left;
 					v.left.parent = v.parent;
 				}
@@ -169,6 +170,14 @@ public class BST {
 		return p;
 	}
 	
+	// Show Tree Recursion
+	public void showTreeRecur() {
+		System.out.println(this.toString());
+		System.out.println("Height : " + height(root));
+		System.out.println("Number of Nodes : " + this.countNode(root));
+	}
+	
+	// Show Tree Iteration
 	public void showTree() {
 		if (root==null)
 			return;
@@ -206,28 +215,31 @@ public class BST {
 	public String toString(Node v) {
 		return inorder(v);
 	}
-	private String inorder(Node v) {
+	
+	//-----------------------------------------------------------------------------
+	private String inorder(Node v) { // left -> middle -> right
 		if (v==null)
 			return "";
 		else
 			return inorder(v.left)+" "+v.toString()+" "+inorder(v.right);
 	}
-	//postOrder 상태
-	public void preorder(Node node) {
-		if(node != null) {
-			System.out.print(node.data + ", ");
-			preorder(node.left);
-			preorder(node.right);
-		}
+	
+	
+	public String preorder(Node node) { // middle -> left -> right
+		if (node==null)
+			return "";
+		else
+			return node.toString()+" "+preorder(node.left)+" "+preorder(node.right);
 	}
 	
-	public void postorder(Node node) {
-		if(node != null) {
-			postorder(node.left);
-			postorder(node.right);
-			System.out.print(node.data+ ", ");
-		}
+	public String postorder(Node node) { // left -> right -> middle
+		if (node==null)
+			return "";
+		else
+			return postorder(node.left)+" "+postorder(node.right)+ " "+ node.toString();
 	}
+	//-----------------------------------------------------------------------------
+	
 	public int height() {    // getHeight -> height
 		return height(root);
 	}
