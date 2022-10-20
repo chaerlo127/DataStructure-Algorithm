@@ -43,11 +43,11 @@ public class DisjointSetLinkedList {
 
 	
 	public void showParent() {
-		DisjointSetLinkedList p = this.parent;
-		System.out.print(p.toString());
-		while (!p.equals(this)) {
-			p = p.next;
-			System.out.print(" <-- " + p.toString());
+		DisjointSetLinkedList node = this.parent;
+		System.out.print(node.toString());
+		while(node.next != null) {
+			node = node.next;
+			System.out.print(" --> "+node.toString());
 		}
 		System.out.println();
 	}
