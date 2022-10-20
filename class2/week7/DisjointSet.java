@@ -3,6 +3,7 @@ package class2.week7;
 import java.util.HashSet;
 import java.util.Set;
 
+// 알고리즘이 필요한 것은 다른 알고리즘에서 필요한 부분 알고리즘
 public class DisjointSet {
 
 	String key; // 도시명
@@ -50,8 +51,21 @@ public class DisjointSet {
 			p = p.parent;
 		return p;
 	}
-
 	
+	// 경로 압축
+	public DisjointSet findSetCompression() {
+		DisjointSet p = this;
+		if(p != p.parent) p.parent = findSetCompression(this.parent);
+		return p;
+	}
+	
+	// 경로 압축
+	private DisjointSet findSetCompression(DisjointSet node) {
+		DisjointSet p = node;
+		if(p != p.parent) p.parent = findSetCompression(node.parent);
+		return p;
+	}
+
 	// rank를 고려한 union 
 	public DisjointSet union(DisjointSet other) {
 		DisjointSet u = this.findSet();
@@ -72,7 +86,30 @@ public class DisjointSet {
 			return u;
 		}
 	}
+	
+	// rank를 고려한 union 
+		public DisjointSet unionCompression(DisjointSet other) {
+			DisjointSet u = this.findSetCompression();
+			DisjointSet v = other.findSetCompression();
 
+			if (u.rank > v.rank) {
+				v.parent = u;
+				System.out.println("--- union : " + v.toString() + " > " + u.toString());
+				return u;
+			} else if (v.rank > u.rank) {
+				u.parent = v;
+				System.out.println("--- union : " + u.toString() + " > " + v.toString());
+				return v;
+			} else { // same ranks ==> anyone can be selected and rank++
+				v.parent = u;
+				System.out.println("--- union : " + v.toString() + " > " + u.toString());
+				u.rank++;
+				return u;
+			}
+		}
+
+
+	// main은 disjointSet이라는 알고리즘을 이렇게 사용한다는 예시를 알려줌.
 	public static void main(String[] args) {
 		String[] cities = { "Seoul", "Incheon", "Daejeon", "Daegu", "Kwangju", "Pusan", "Ulsan", "Mokpo", "Chuncheon",
 				"Kyeongju" };
@@ -107,25 +144,33 @@ public class DisjointSet {
 
 		System.out.println("\n<< MakeSet >>");
 
+		// DisjointSet의 내부 구현을 access를 하기 위해서 만들어진 것임.
 		for (int i = 0; i < cities.length; i++) {
 			nodeSet[i] = new DisjointSet();
 			nodeSet[i] = nodeSet[i].makeSet(cities[i]);
 			nodeSet[i].showParent();
 		}
 
+		
+		// sorting 된 distance를 찾아나가면 됨.
 		System.out.println("\n<< Union Processing... >>");
 
+		// 최소 경로 및 최대 이익을 얻기 위한 지역을 선정했으면 set에 저장 -> cycle이 생기지 않도록 하기 위해
 		Set<Integer> edgeSelected = new HashSet<>();
 
+		
+		// n = distance의 길이
+		// 실제로는 city의 개수로 해도 된다
 		// city의 개수를 넘어가면 cycle이 생기게 된다.
 		for (int i = 0; i < n; i++) {
 			DisjointSet tempA = nodeSet[distance[i][0]].findSet(); // 첫 번째 도시 (한 쪽 도시) -> 의 대표 선수(노드, root)
 			DisjointSet tempB = nodeSet[distance[i][1]].findSet(); // 두 번째 도시
-			if (tempA != tempB) { // A와 B가 서로 다른 도시면? 고유 해쉬 값이 같으냐, 정확히 아까 만든 애인지 확인해야 함. 
+			if (tempA != tempB) { // A와 B가 서로 다른 도시면? 고유 해쉬 값이 같으냐, 정확히 아까 만든 애인지 확인해야 함. 서로 각기 다른 트리에 속해 있다면?
 				edgeSelected.add(i); // 집합을 저장한다.
 				tempA.union(tempB); // rank를 붙이면 효율적으로 됨 .
+//				tempA.unionCompression(tempB); // rank를 붙이면 효율적으로 됨 .
 				System.out.println(" >>> edge " + i + " : SELECTED ");
-			} else {
+			} else { // 같은 트리에 속해 있다면? 
 				System.out.println(" xxx edge " + i + " : REJECTED "); // 같은 Tree에 이미 속해있는 경우
 			}
 		}
