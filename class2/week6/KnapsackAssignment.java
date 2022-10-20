@@ -8,18 +8,22 @@ public class KnapsackAssignment {
 	int capacity, nOfItems ; 
 	int [] weight, price ;
 	int [][] dpt; // dynamic programming table
+	int count;
 	public KnapsackAssignment(int m, int [][] in) {
 		capacity = m;
 		nOfItems=in.length;
 		price=new int[nOfItems+1]; // 맨 위와 왼쪽 끝에 0을 넣어줘야지 dp table 작성이 편해서 넣어줌.
 		weight=new int[nOfItems+1];
+		count = 0;
 		for (int i=0;i<nOfItems;i++) { 
 			price[i+1]= in[i][0];
 			weight[i+1]= in[i][1];
 		}
 	}
+	
 	public void initDP() {
 		dpt = new int[nOfItems+1][capacity+1];  // table에 0은 값이 없게 두도록 저장하기 위해서 item의 개수, 저장할 price의 최대 용량
+		count = 0;
 	}
 	
 	public void showDP() {
@@ -39,6 +43,7 @@ public class KnapsackAssignment {
 	}
 	
 	private int findMax(int m, int n) {
+		count++;
 		if (m <= 0 || n <= 0) // m은 남은 크기, n은 물건의 남은 개수
 			return 0;
 		else if (m<weight[n]) // 자기자신 미포함, 남은 크기가 현재 내 weight보다 작은 경우
@@ -52,6 +57,7 @@ public class KnapsackAssignment {
 	}
 
 	private int findMaxDP(int m, int n) {
+		count++;
 		if (m<=0 || n <= 0) { // m은 남은 크기, n은 물건의 남은 개수
 			return 0;
 		}
@@ -68,12 +74,13 @@ public class KnapsackAssignment {
 	}
 	
 	public int findMaxDP2() {
-		for (int i = 1; i <= nOfItems; i++) {
-			for(int j = 1; j <= capacity; j++) {
-				if(weight[i] <= j)
+		for (int i = 1; i <= nOfItems; i++) { // data의 개수 
+			for(int j = 1; j <= capacity; j++) { //용량
+				count++;
+				if(weight[i] <= j) // 용량보다 데이터의 무게가 작은 경우
 					dpt[i][j] = Math.max(price[i] + dpt[i-1][j - weight[i]], dpt[i-1][j]);
 				else
-					dpt[i][j] = dpt[i-1][j];
+					dpt[i][j] = dpt[i-1][j]; // 용량보다 데이터의 무게가 큰 경우
 			}
 		}
 		return dpt[nOfItems][capacity];
@@ -85,13 +92,13 @@ public class KnapsackAssignment {
 		int [][] data = {{3,1},{2,2},{5,3},{3,4}};  // {price, weight}
 		
 		KnapsackAssignment me = new KnapsackAssignment(M, data);
-		System.out.println("Max. Value (Recursion) =  "+me.findMax());
+		System.out.println("Max. Value (Recursion) =  "+me.findMax() + " Count: " + me.count);
 		me.initDP();
-		System.out.println("Max. Value (Recursion+DP) =  "+me.findMaxDP());
+		System.out.println("Max. Value (Recursion+DP) =  "+me.findMaxDP()+ " Count: " + me.count);
 		me.showDP();
 		me.initDP();
 		// 앞에서부터 다 채우는 것
-		System.out.println("Max. Value (DP Iteration) =  "+me.findMaxDP2());
+		System.out.println("Max. Value (DP Iteration) =  "+me.findMaxDP2()+ " Count: " + me.count);
 		me.showDP();
 	}
 

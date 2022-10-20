@@ -72,7 +72,7 @@ public class LCS0Assignment {
 		}
 
 		// dynamic programming Iteration : Bottom - up 방식
-		// assignment 
+		// assignment m: 세로(열) n: 가로 (행)
 		private int lcsIterBU(char[] a, int m, char[] b, int n) {
 			for(int i = 0; i<=m ; i++) {
 				for(int j = 0 ; j <= n; j++) {
