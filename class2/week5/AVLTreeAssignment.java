@@ -1,7 +1,9 @@
 package class2.week5;
 
-/*
- * 코드를 다시 작성하기 보다는, 코드를 읽으면서 상세 설명을 적어 둠. 
+/*Height: O(log n)
+ *Insert: O(log n)
+ *delete: O(log n)
+ * 
  * */
 // balance binary search tree
 // 기본 속성은 같음.

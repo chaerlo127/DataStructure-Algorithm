@@ -3,7 +3,8 @@ package class2.week4;
 import java.util.HashSet;
 
 //  여기서는 각 method가 nOfHops를 return 함
-
+// 갑이 커질 수록 Chaining이 더 효율적임.
+// worst case: O(n) -> search
 public class Chaining {
 	
 	private class HashNode {
@@ -43,7 +44,7 @@ public class Chaining {
 	public int insert(int d) {
 		int index = hashFunction(d);
 		HashNode newNode = new HashNode(d);
-		// hTable[index]의 맨 앞으로 insert
+//		 hTable[index]의 맨 앞으로 insert
 		newNode.next = hTable[index];
 		hTable[index]=newNode;
 		

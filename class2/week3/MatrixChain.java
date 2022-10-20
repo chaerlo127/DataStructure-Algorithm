@@ -1,5 +1,7 @@
 package class2.week3;
 
+// 행렬 곱셈 순서 최소가 되도록
+// 시간 복잡도 O(n^3)
 public class MatrixChain {
 	int nOfMatrix;
 	int [] p;  // array of dimension
@@ -25,14 +27,14 @@ public class MatrixChain {
 		return count;
 	}
 	
-	// 1는 1로 고정
+	// 1는 1로 고정, j는 matrix의 개수  
 	int matrixChain(int i, int j){
 		count++;
 		if (i==j) return 0;
 		int min=99999999;
 		for (int k=i;k<j;k++) { // i <= k <= j-1
 			// breakPoint를 하나 씩 오른 쪽으로 이동시키면서 최소 값을 찾는다.
-			int q=matrixChain(i,k)+matrixChain(k+1,j)+p[i-1]*p[k]*p[j];
+			int q=matrixChain(i,k)+matrixChain(k+1,j)+p[i-1]*p[k]*p[j]; 
 			if (q<min) min=q;
 		}
 		return min;
@@ -66,7 +68,7 @@ public class MatrixChain {
 		int numOfMatrix=dimension.length-1; // 5
 		
 		MatrixChain mc = new MatrixChain(dimension);
-		for (int i=1; i<=numOfMatrix; i++) {
+		for (int i=1; i<=numOfMatrix; i++) { // matrix 가 1개일 때부터 matrix가 5개 일때까지의 행렬 곱셈 순서가 최소가 되는 경우
 			mc.reset();
 			System.out.print("Recursion : "+mc.matrixChain(1,i)+"   Count="+mc.getCount());
 			mc.reset();

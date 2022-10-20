@@ -1,5 +1,8 @@
 package class2.week6;
 
+
+// Not DP -> O(2^n)
+// DP table -> O(mn)
 public class LCS0Assignment {
 	   int [][] table;
 	   String x;

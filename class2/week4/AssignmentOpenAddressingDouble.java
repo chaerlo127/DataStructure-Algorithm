@@ -16,7 +16,7 @@ public class AssignmentOpenAddressingDouble {
 	public AssignmentOpenAddressingDouble(int tableSize) {
 		m=tableSize;
 		hTable = new int [m];
-		Arrays.fill(hTable, -1);
+		Arrays.fill(hTable, -1); // htable 내 모든 저장소에 -1을 넣음.
 		
 		numberOfItems = 0;
 	}
@@ -65,13 +65,13 @@ public class AssignmentOpenAddressingDouble {
 
 			nOfHops++;
 			int nOfCollisions = 1;
-			int probeIndex  = (index+hashFunction2(d))%m;
-			while(hTable[probeIndex]!=-1 && hTable[probeIndex]!=-999) {
-				System.out.println("nCollision= "+nOfCollisions+"  probeIndex= "+probeIndex);
+			int probeIndex = (index + nOfCollisions * hashFunction2(d)) % m;
+			while (hTable[probeIndex] != -1 && hTable[probeIndex] != -999) {
+				System.out.println("nCollision= " + nOfCollisions + "  probeIndex= " + probeIndex);
 
 				nOfCollisions++;
 				nOfHops++;
-				probeIndex  = (index+hashFunction2(d))%m;
+				probeIndex = (index + nOfCollisions * hashFunction2(d)) % m;
 				
 				if (probeIndex==index) return -99999;  
 					 
@@ -93,11 +93,11 @@ public class AssignmentOpenAddressingDouble {
 		else { // Collision
 			nOfHops++;
 			int nOfCollisions = 1;
-			int probeIndex  = (index+hashFunction2(d))%m;
+			int probeIndex  = (index+ nOfCollisions * hashFunction2(d))%m;
 			while(hTable[probeIndex]!=-1 && hTable[probeIndex]!=d) {
 				nOfCollisions++;
 				nOfHops++;
-				probeIndex  = (index+hashFunction2(d))%m;
+				probeIndex  = (index+ nOfCollisions * hashFunction2(d))%m;
 
 				if (probeIndex==index) return -99999;  
 			}
@@ -119,13 +119,13 @@ public class AssignmentOpenAddressingDouble {
 		else { // Collision
 			nOfHops++;
 			int nOfCollisions = 1;
-			int probeIndex  = (index+hashFunction2(d))%m;
+			int probeIndex  = (index+ nOfCollisions * hashFunction2(d))%m;
 			while(hTable[probeIndex]!=-1 && hTable[probeIndex]!=d) {
 				nOfCollisions++;
 				nOfHops++;
-				probeIndex  = (index+hashFunction2(d))%m;
+				probeIndex = (index + nOfCollisions * hashFunction2(d)) % m;
 
-				if (probeIndex==index) return -99999;  // ?????
+				if (probeIndex==index) return -99999;  // 한바퀴를 돌았는데도 지워지지 않음
 			}
 			if (hTable[probeIndex]==d) {
 				hTable[index]=-999;
@@ -136,7 +136,7 @@ public class AssignmentOpenAddressingDouble {
 				return -nOfHops;
 		}
 	}
-
+//  -------------------------------------------------------------------------------------
 	private int hashFunction(int value) {
 		// 나누기방법
 		return (value%m);
@@ -154,14 +154,17 @@ public class AssignmentOpenAddressingDouble {
 		// 빈 곳을 찾으면 insert하고 그 index를 return 
 		// --> 정상동작이 확인되면 index가 아니라 nOfHops를 return하도록 수정
 		// 처음 위치까지 빈 곳을 못찾으면 -777을 return
-			int probeIndex  = (index+1)%m;
+			int i = 1;
+			int probeIndex = (index + i * hashFunction2(value)) % m;
 			nOfHops++;
-//			while(hTable[probeIndex]!=-1 ) {  // 완전하지 않은 코드-> 나중에 수정 예정
+			
 			while(hTable[probeIndex]!=-1 && hTable[probeIndex]!=-999) {  
-				probeIndex  = (probeIndex+1)%m;
+				System.out.println("Collision= "+index+"  probeIndex= "+probeIndex);
 				nOfHops++;
-				if (probeIndex==index)  // 한바퀴를 다 돌았는데 빈 곳이 없는 경우
-					return -777;        // No Space! 
+				i++;
+				probeIndex = (probeIndex + i * hashFunction2(value)) % m;
+				
+				if (probeIndex==index) return -777;  
 			}
 			index=probeIndex;
 		}
@@ -184,12 +187,14 @@ public class AssignmentOpenAddressingDouble {
 			// --> 정상동작이 확인되면 index가 아니라 nOfHops를 return하도록 수정
 			// 처음 위치로 돌아올 때까지 못찾으면 -888을 return --> 정상동작이 확인되면 -888이 아니라 -nOfHops를 return하도록 수정
 			System.out.println("Search new location of "+index);
-			int probeIndex  = (index+1)%m;
+			int i = 1;
+			int probeIndex = (index + i * hashFunction2(value)) % m;
 			nOfHops++;
 
 			while(hTable[probeIndex]!=-1 && hTable[probeIndex]!=value) {
-				probeIndex  = (probeIndex+1)%m;
 				nOfHops++;
+				i++;
+				probeIndex = (probeIndex + i * hashFunction2(value)) % m;
 				if (probeIndex==index)  // 한바퀴를 다 돌았는데 못찾음
 					return -8888;  		// Not found를 의미
 			}
@@ -214,11 +219,13 @@ public class AssignmentOpenAddressingDouble {
 			// --> 정상동작이 확인되면 index가 아니라 nOfHops를 return하도록 수정
 			// 처음 위치로 돌아올 때까지 못찾으면 -888을 return --> 정상동작이 확인되면 -888이 아니라 -nOfHops를 return하도록 수정
 			System.out.println("Search new location of "+index+" to delete");
-			int probeIndex  = (index+1)%m;
+			int i = 1;
+			int probeIndex = (index + i * hashFunction2(value)) % m;
 			nOfHops++;
 			while(hTable[probeIndex]!=-1 && hTable[probeIndex]!=value) {
-				probeIndex  = (probeIndex+1)%m;
 				nOfHops++;
+				i++;
+				probeIndex = (probeIndex + i * hashFunction2(value)) % m;
 				if (probeIndex==index)
 					return -888;  // Not found를 의미
 			}
@@ -231,7 +238,6 @@ public class AssignmentOpenAddressingDouble {
 		}
 		
 	}
-
 
 	public static void main(String[] args) {
 		

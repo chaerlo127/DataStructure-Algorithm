@@ -81,7 +81,7 @@ public class AssginmentOpenAddressingLinear {
 		int index = hashFunction(value);
 		nOfHops =1;
 		if (value==hTable[index]) {
-			hTable[index]=-1; // 완전하지 않은 코드-> 나중에 수정 예정
+			hTable[index]=-999; 
 			return index;
 		}
 		else {

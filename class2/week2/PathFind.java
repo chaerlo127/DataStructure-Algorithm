@@ -1,5 +1,6 @@
-package class2.week1;
+package class2.week2;
 
+// 저장 된 배열을 더하면서 길 찾아나가는데, 합이 최소여야 함.
 public class PathFind {
 	int [][] maze, memo;
 	int count, mSize;

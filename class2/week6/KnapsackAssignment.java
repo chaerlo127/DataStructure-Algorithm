@@ -2,7 +2,8 @@ package class2.week6;
 
 public class KnapsackAssignment {
 	/*
-	 * recursion의 성능은  
+	 * recursion: O(2^n)
+	 * DP: O(mn)
 	 * */
 	int capacity, nOfItems ; 
 	int [] weight, price ;

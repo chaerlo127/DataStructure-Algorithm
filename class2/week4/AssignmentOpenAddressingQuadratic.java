@@ -43,35 +43,35 @@ public class AssignmentOpenAddressingQuadratic {
 	public int quadInsert(int d) {
 		if (loadfactor()>=threshold) {
 			System.out.println(">>>  Hash Table is Enlarged !!");
-			System.out.print(">>>  Table Size : "+m+", Load Factor : "+loadfactor());
-			enlargeTable();
-			System.out.println("  ==>  Table Size : "+m+", Load Factor : "+loadfactor());
+			System.out.print(">>>  Table Size : "+m+", Load Factor : "+loadfactor()); // 0.7 이상 데이터가 찼다.
+			enlargeTable(); // Table의 용량을 높인다.
+			System.out.println("  ==>  Table Size : "+m+", Load Factor : "+loadfactor()); // 현재 loadfactor를 확인한다
 		}
 		int index = hashFunction(d);
 		nOfHops =1;
-		if (hTable[index]==-1) {
-			hTable[index]=d;
+		if (hTable[index] == -1) {
+			hTable[index] = d;
 			numberOfItems++;
 //			return nOfHops;
 			return index;
-		}
-		else { // Collision
-			System.out.println("Collision! at "+index);
+		} else { // Collision
+			System.out.println("Collision! at " + index);
 
 			nOfHops++;
 			int nOfCollisions = 1;
-			int probeIndex  = (index+nOfCollisions*nOfCollisions)%m;
-			while(hTable[probeIndex]!=-1 && hTable[probeIndex]!=-999) {
-				System.out.println("nCollision= "+nOfCollisions+"  probeIndex= "+probeIndex);
+			int probeIndex = (index + nOfCollisions * nOfCollisions) % m;
+			while (hTable[probeIndex] != -1 && hTable[probeIndex] != -999) {
+				System.out.println("nCollision= " + nOfCollisions + "  probeIndex= " + probeIndex);
 
 				nOfCollisions++;
 				nOfHops++;
-				probeIndex  = (index+nOfCollisions*nOfCollisions)%m;
-				
-				if (probeIndex==index) return -99999;  
-					 
+				probeIndex = (index + nOfCollisions * nOfCollisions) % m;
+
+				if (probeIndex == index)
+					return -99999;
+
 			}
-			hTable[probeIndex]=d;
+			hTable[probeIndex] = d; // 기존에 값이 저장되어 있지 않거나, -999로 delete 된 저장소에 값을 넣어준다.
 			numberOfItems++;
 //			return nOfHops;
 			return probeIndex;
@@ -98,7 +98,7 @@ public class AssignmentOpenAddressingQuadratic {
 			}
 			if (hTable[probeIndex]==d)
 				return nOfHops;
-			else
+			else // -1이면 찾지 못했다는 것임.
 				return -nOfHops;
 		}
 	}
@@ -120,7 +120,8 @@ public class AssignmentOpenAddressingQuadratic {
 				nOfHops++;
 				probeIndex  = (index+nOfCollisions*nOfCollisions)%m;
 
-				if (probeIndex==index) return -99999;  // ?????
+				if (probeIndex==index) return -99999;  
+				// 한 바취를 돌렸는데도(같은 index의 위치로 왔어도) 찾지 못했다. 결국 addressing 안에 값이 없다는 것
 			}
 			if (hTable[probeIndex]==d) {
 				hTable[index]=-999;
@@ -132,6 +133,7 @@ public class AssignmentOpenAddressingQuadratic {
 		}
 	}
 
+	//------------------------------------------------------------------------
 	private int hashFunction(int value) {
 		// 나누기방법
 		return (value%m);
@@ -144,19 +146,21 @@ public class AssignmentOpenAddressingQuadratic {
 		
 		if (hTable[index]!=-1) {
 			System.out.println("Collision! at "+index);
-		// open addressing-linear
+		// open addressing-Quadratic
 		// 충돌이 발생하면 index값을 하나씩 증가시키면서 빈곳을 찾아 insert
 		// 빈 곳을 찾으면 insert하고 그 index를 return 
 		// --> 정상동작이 확인되면 index가 아니라 nOfHops를 return하도록 수정
 		// 처음 위치까지 빈 곳을 못찾으면 -777을 return
-			int probeIndex  = (index+1)%m;
+			int nOfCollisions = 1;
+			int probeIndex  = (index+nOfCollisions*nOfCollisions)%m;
 			nOfHops++;
-//			while(hTable[probeIndex]!=-1 ) {  // 완전하지 않은 코드-> 나중에 수정 예정
 			while(hTable[probeIndex]!=-1 && hTable[probeIndex]!=-999) {  
-				probeIndex  = (probeIndex+1)%m;
+				System.out.println("nCollision= "+nOfCollisions+"  probeIndex= "+probeIndex);
+				nOfCollisions++;
 				nOfHops++;
-				if (probeIndex==index)  // 한바퀴를 다 돌았는데 빈 곳이 없는 경우
-					return -777;        // No Space! 
+				probeIndex  = (index+nOfCollisions*nOfCollisions)%m;
+				
+				if (probeIndex==index) return -777;  // 한바퀴가 돌았다.
 			}
 			index=probeIndex;
 		}
@@ -179,12 +183,14 @@ public class AssignmentOpenAddressingQuadratic {
 			// --> 정상동작이 확인되면 index가 아니라 nOfHops를 return하도록 수정
 			// 처음 위치로 돌아올 때까지 못찾으면 -888을 return --> 정상동작이 확인되면 -888이 아니라 -nOfHops를 return하도록 수정
 			System.out.println("Search new location of "+index);
-			int probeIndex  = (index+1)%m;
+			int nOfCollisions = 1;
+			int probeIndex  = (index+nOfCollisions*nOfCollisions)%m;
 			nOfHops++;
 
 			while(hTable[probeIndex]!=-1 && hTable[probeIndex]!=value) {
-				probeIndex  = (probeIndex+1)%m;
+				nOfCollisions++;
 				nOfHops++;
+				probeIndex  = (index+nOfCollisions*nOfCollisions)%m;
 				if (probeIndex==index)  // 한바퀴를 다 돌았는데 못찾음
 					return -8888;  		// Not found를 의미
 			}
@@ -200,7 +206,7 @@ public class AssignmentOpenAddressingQuadratic {
 		int index = hashFunction(value);
 		nOfHops =1;
 		if (value==hTable[index]) {
-			hTable[index]=-999; // -1 ==> -999
+			hTable[index]=-999;
 			return index;
 		}
 		else {
@@ -209,24 +215,25 @@ public class AssignmentOpenAddressingQuadratic {
 			// --> 정상동작이 확인되면 index가 아니라 nOfHops를 return하도록 수정
 			// 처음 위치로 돌아올 때까지 못찾으면 -888을 return --> 정상동작이 확인되면 -888이 아니라 -nOfHops를 return하도록 수정
 			System.out.println("Search new location of "+index+" to delete");
-			int probeIndex  = (index+1)%m;
+			int nOfCollisions = 1;
+			int probeIndex  = (index+nOfCollisions*nOfCollisions)%m;
 			nOfHops++;
 			while(hTable[probeIndex]!=-1 && hTable[probeIndex]!=value) {
-				probeIndex  = (probeIndex+1)%m;
+				nOfCollisions++;
 				nOfHops++;
+				probeIndex  = (index+nOfCollisions*nOfCollisions)%m;
 				if (probeIndex==index)
-					return -888;  // Not found를 의미
+					return -888;  // Not found를 의미(한바퀴를 돌았다)
 			}
 			if (hTable[probeIndex]==value) {
-				hTable[probeIndex]=-999; // -1 ==> -999
+				hTable[probeIndex]=-999; 
 				return probeIndex;
 			}
 			else
-				return -888; // Not found를 의미
+				return -888; // Not found를 의미 hTable[probeIndex]!=-1
 		}
 		
 	}
-
 
 	public static void main(String[] args) {
 		long beforeTime = System.nanoTime();

@@ -1,5 +1,6 @@
-package class2.week1;
+package class2.week2;
 
+// 시간 복잡도 : O(1)
 public class Fibonacci {
 
 	int count;

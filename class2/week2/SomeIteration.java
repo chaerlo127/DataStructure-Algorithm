@@ -1,4 +1,4 @@
-package class2.week1;
+package class2.week2;
 
 public class SomeIteration {
 
