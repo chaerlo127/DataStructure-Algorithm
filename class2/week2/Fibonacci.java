@@ -41,6 +41,13 @@ public class Fibonacci {
 		}
 	}
 	
+	public void showDP() {
+		for(int i = 0; i<fibo.length; i++) {
+			System.out.print(fibo[i] + " ");
+		}
+		System.out.println();
+	}
+	
 	public static void main(String[] args) {
 		Fibonacci f = new Fibonacci();
 		int c0, c1, c2;
@@ -56,6 +63,7 @@ public class Fibonacci {
 			f.fiboDP(n);
 			c2 = f.getCount();
 			System.out.printf("Iteration = %-5d ==> Recursion = %-10d ==> Memoization = %-10d%n", c0, c1, c2);
+//			f.showDP();
 		}
 
 	}

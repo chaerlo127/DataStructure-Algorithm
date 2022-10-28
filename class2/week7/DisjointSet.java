@@ -43,6 +43,7 @@ public class DisjointSet {
 		System.out.println();
 	}
 
+	// 집합에 연산 하나
 	public DisjointSet makeSet(String k) {
 		this.key = k;
 		this.rank = 0;
@@ -50,6 +51,7 @@ public class DisjointSet {
 		return this;
 	}
 
+	// 집합의 root를 찾아 return
 	public DisjointSet findSet() {
 		DisjointSet p = this;
 		while (!p.equals(p.parent))
@@ -57,12 +59,12 @@ public class DisjointSet {
 		return p;
 	}
 	
-	// 경로 압축
+	// 경로 압축 Recursion - 1
 	public DisjointSet findSetCompression() {
 		return findSetCompression(this);
 	}
 	
-	// 경로 압축
+	// 경로 압축 Recursion - 2
 	private DisjointSet findSetCompression(DisjointSet node) {
 		if(!node.equals(node.parent)) node.parent = findSetCompression(node.parent);
 		return node.parent;
@@ -103,14 +105,35 @@ public class DisjointSet {
 		}
 	}
 	
-	// rank를 고려한 union 
-		public DisjointSet unionCompression(DisjointSet other) {
+	// rank를 고려한 union
+	public DisjointSet unionCompression(DisjointSet other) {
+		DisjointSet u = this.findSetCompression();
+		DisjointSet v = other.findSetCompression();
+
+		if (u.rank > v.rank) {
+			v.parent = u;
+			System.out.println("--- unsion : " + v.toString() + " > " + u.toString());
+			return u;
+		} else if (v.rank > u.rank) {
+			u.parent = v;
+			System.out.println("--- union : " + u.toString() + " > " + v.toString());
+			return v;
+		} else { // same ranks ==> anyone can be selected and rank++
+			v.parent = u;
+			System.out.println("--- union : " + v.toString() + " > " + u.toString());
+			u.rank++;
+			return u;
+		}
+	}
+	
+	// rank를 고려한 union
+		public DisjointSet unionCompressionIter(DisjointSet other) {
 			DisjointSet u = this.findSetCompressionIter();
 			DisjointSet v = other.findSetCompressionIter();
 
 			if (u.rank > v.rank) {
 				v.parent = u;
-				System.out.println("--- union : " + v.toString() + " > " + u.toString());
+				System.out.println("--- unsion : " + v.toString() + " > " + u.toString());
 				return u;
 			} else if (v.rank > u.rank) {
 				u.parent = v;
@@ -123,7 +146,6 @@ public class DisjointSet {
 				return u;
 			}
 		}
-
 
 	public static void main(String[] args) {
 		String [] cities = { "Seoul", "Incheon", "Daejeon", "Daegu", "Kwangju", "Pusan", "Ulsan","Mokpo", "Chuncheon", "Kyeongju"};

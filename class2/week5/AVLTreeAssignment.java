@@ -3,8 +3,7 @@ package class2.week5;
 /*Height: O(log n) -> worst case에서도 log n
  *Insert: O(log n)
  *delete: O(log n)
- * 
- * */
+ */
 // balance binary search tree
 // 기본 속성은 같음.
 // BST를 상속 받아서 한다. 

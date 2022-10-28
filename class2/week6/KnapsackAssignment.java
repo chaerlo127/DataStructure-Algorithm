@@ -73,6 +73,7 @@ public class KnapsackAssignment {
 		}
 	}
 	
+	// Iteration
 	public int findMaxDP2() {
 		for (int i = 1; i <= nOfItems; i++) { // data의 개수 
 			for(int j = 1; j <= capacity; j++) { //용량

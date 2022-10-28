@@ -60,7 +60,7 @@ public class DisjointLinkedListPro {
 		if(a.weight >= b.weight) {
 			System.out.println("--- union : "+ b.toString()+" > " +b.toString());
 
-			a.tail.next = b;  //
+			a.tail.next = b;  // root를 a와 연결
 			b.head=a;
 			while(b.next != null) {
 				b = b.next;

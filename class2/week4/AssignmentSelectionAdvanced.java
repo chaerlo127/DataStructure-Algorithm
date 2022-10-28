@@ -61,12 +61,9 @@ public class AssignmentSelectionAdvanced {
 		
 		int q = linearPartition(data, p, r);
 		int k = q-p;
-		if (i<k)
-			return linearSelect(data, p, q-1, i);
-		else if (i==k)
-			return data[q];
-		else
-			return linearSelect(data, q+1, r, i-(q-p+1));
+		if (i<k)return linearSelect(data, p, q-1, i);
+		else if (i==k) return data[q];
+		else return linearSelect(data, q+1, r, i-(q-p+1));
 	}
  
 	// 첫 번째 p는 무조건 0이고, r은 0부터 data.length -1 (데이터의 길이까지) 까지

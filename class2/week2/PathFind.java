@@ -12,7 +12,7 @@ public class PathFind {
 		memo = new int[mSize][mSize];
 	}
 	
-	// bottom - up 방식
+	// bottom - up 방식, Recursion
 	public int maxPathRec(int row, int col) {
 		count++;
 		if(row == 0 && col == 0)
@@ -32,12 +32,12 @@ public class PathFind {
 		for(int i = 0 ; i<=row; i++) {
 			count++;
 			if(i == 0) memo[i][0] = maze[i][0];
-			else memo[i][0] = maze[i][0] + maze[i-1][0]; // 가로 줄 쭉 더하기
+			else memo[i][0] = maze[i][0] + maze[i-1][0]; // 세로가 0일 때, 가로 줄 쭉 더하기
 		}
 		for(int i = 0 ; i<=col; i++) {
 			count++;
 			if(i == 0) memo[0][i] = maze[0][i];
-			else memo[0][i] = maze[0][i] + maze[0][i-1]; // 세로 줄 쭉 더하기
+			else memo[0][i] = maze[0][i] + maze[0][i-1]; // 가로가 0일 때, 세로 줄 쭉 더하기
 		}
 		for(int i = 1; i<=row; i++) {
 			for(int j = 1; j<=col; j++) {

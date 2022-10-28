@@ -32,7 +32,7 @@ public class MatrixChain {
 		count++;
 		if (i==j) return 0;
 		int min=99999999;
-		for (int k=i;k<j;k++) { // i <= k <= j-1
+		for (int k=i;k<j;k++) { // i <= k <= j-1 즉, 최대는 p[i-1]p[k]p[j-1]과 같음
 			// breakPoint를 하나 씩 오른 쪽으로 이동시키면서 최소 값을 찾는다.
 			int q=matrixChain(i,k)+matrixChain(k+1,j)+p[i-1]*p[k]*p[j]; 
 			if (q<min) min=q;
@@ -40,7 +40,7 @@ public class MatrixChain {
 		return min;
 	}
 	
-	// i는 1로 고정 -> 시간 복잡도는 O(n^3)
+	// 시간 복잡도는 O(n^3)
 	int matrixChainDP(int i, int j){
 		count++;
 		if (memo[i][j]>=0)
@@ -53,6 +53,25 @@ public class MatrixChain {
 			min = memo[i][j];
 		}
 		return min;
+	}
+
+	int MatrixChainIter(int n) {
+		int i, j, k, L, q;
+
+		for (L = 2; L < n; L++) {
+			for (i = 1; i < n - L + 1; i++) {
+				j = i + L - 1;
+				if (j == n)
+					continue;
+				memo[i][j] = Integer.MAX_VALUE;
+				for (k = i; k <= j - 1; k++) {
+					q = memo[i][k] + memo[k + 1][j] + p[i - 1] * p[k] * p[j];
+					if (q < memo[i][j])
+						memo[i][j] = q;
+				}
+			}
+		}
+		return memo[1][n - 1];
 	}
 	
 	public void showMemoTable() {

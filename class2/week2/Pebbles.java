@@ -69,7 +69,7 @@ public class Pebbles {
 			memo[j][1] = aPatternValue(1, j);
 		}
 		
-		for(int j = 2; j<=i ; j++) { // 지삭 행의 개수 하나 씩 늘리기
+		for(int j = 2; j<=i ; j++) { // 자식 행의 개수 하나 씩 늘리기
 			for(int a = 1; a<=4; a++) { // 다음 열인 경우 -> 패턴 경우의 수가 1 ~ 4까지 있음. 
 				int k = 0;
 				int max = -99999;

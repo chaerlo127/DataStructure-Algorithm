@@ -80,7 +80,7 @@ public class Chaining {
 			hTable[index]=p.next;
 			return nOfHops;
 		}
-		HashNode q = p.next;
+		HashNode q = p.next; // 지우고자 하는 key를 갖고 있는 객체
 		nOfHops++;
 		while (q!=null) {
 		
