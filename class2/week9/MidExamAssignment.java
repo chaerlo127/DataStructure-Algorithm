@@ -1,6 +1,6 @@
 package class2.week9;
 
-public class MidExamA {
+public class MidExamAssignment {
 
 	/////////////////////////////////////////////////////////////////////////
 	//Q1 : Graph in LinkedList
@@ -81,14 +81,14 @@ public class MidExamA {
 			temp =s.charAt(k-1);
 			k--;
 		}
-		String temp1 = s.substring(k,size);
-		String temp2="";
+		String tempA = s.substring(k,size);
+		String tempB="";
 		if (k>0)
-			temp2 = longConsecutiveSeq(s.substring(0,k));
-		if (temp1.length()>temp2.length())
-			return temp1;
+			tempB = longConsecutiveSeq(s.substring(0,k));
+		if (tempA.length()>tempB.length())
+			return tempA;
 		else 
-			return temp2;
+			return tempB;
 	}
 	/////////////////////////////////////////////////////////////////////////
 	//Q2 -2: longest Hidden Sequence
@@ -111,12 +111,12 @@ public class MidExamA {
 			}
 			k--;
 		}
-		String temp1 = sTemp;
-		String temp2= longEmbeddedSeq(s.substring(0,size-1));
-		if (temp1.length()>temp2.length())
-			return temp1;
+		String tempA = sTemp;
+		String tempB= longEmbeddedSeq(s.substring(0,size-1));
+		if (tempA.length()>tempB.length())
+			return tempA;
 		else 
-			return temp2;
+			return tempB;
 	}
 
 	/////////////////////////////////////////////////////////////////////////
@@ -125,12 +125,12 @@ public class MidExamA {
 
 	int [][] priceWeight ;
 	int nProduct, maxW;
-	int [][] dptable;
+	int [][] DPT;
 	public void setPriceWeight(int [][] input) {
 		priceWeight = input;
 		nProduct = priceWeight.length-1;
 		maxW=getMaxWeight();
-		dptable=new int [nProduct+1][getMaxWeight()+1];
+		DPT=new int [nProduct+1][getMaxWeight()+1];
 	}
 
 	private int getMaxWeight() {
@@ -175,15 +175,15 @@ public class MidExamA {
 		if (o<=0 || w<=0)
 			return 0;
 		if (priceWeight[o][1]>w) {
-			return dptable[o][w]=getMaxPriceDP(o-1, w);
+			return DPT[o][w]=getMaxPriceDP(o-1, w);
 		}
 		else {
-			if (dptable[o][w]==0) {
-				if (dptable[o][priceWeight[o][1]]==0)
-					dptable[o][priceWeight[o][1]]=priceWeight[o][0]+getMaxPriceDP(o-1, priceWeight[o][1]);
-				dptable[o][w]=Math.max(dptable[o][priceWeight[o][1]],getMaxPriceDP(o-1, w));
+			if (DPT[o][w]==0) {
+				if (DPT[o][priceWeight[o][1]]==0)
+					DPT[o][priceWeight[o][1]]=priceWeight[o][0]+getMaxPriceDP(o-1, priceWeight[o][1]);
+				DPT[o][w]=Math.max(DPT[o][priceWeight[o][1]],getMaxPriceDP(o-1, w));
 			}
-			return dptable[o][w];
+			return DPT[o][w];
 		}
 	}
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -191,7 +191,7 @@ public class MidExamA {
 	public void showDPT() {
 		for (int i=1 ; i<=nProduct ; i++) {
 			for (int j=1; j<=getMaxWeight(); j++) {
-				System.out.printf("%5d", dptable[i][j]);
+				System.out.printf("%5d", DPT[i][j]);
 			}
 			System.out.println();
 		}
@@ -200,7 +200,7 @@ public class MidExamA {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	public static void main(String[] args) {
-		MidExamA q = new MidExamA();
+		MidExamAssignment q = new MidExamAssignment();
 
 		/////////////////////////////////////////////////////////////////////////
 
