@@ -5,6 +5,7 @@ import java.util.Deque;
 import java.util.HashSet;
 import java.util.Set;
 
+// 코드를 다시 작성하는 것이라도 코드는 수업시간 그대로 제출이 되는 것이기 때문에 주석을 달아 설명으로 대체하고자 합니다.
 // list라면 vertex가 사라지고 추가되는 것을 고려할 것이다.
 // delete 시, vertex의 인접하게 정의되어 있는 노드를 저장한 edge를 지워야 한다. -> 까다로워진다. 
 public class GraphInMatrix {  // Vertices # is fixed, Undirected Graph in Matrix
@@ -63,13 +64,12 @@ public class GraphInMatrix {  // Vertices # is fixed, Undirected Graph in Matrix
 	
 	// 추상 자료형에서 set으로 표현 
 	// adjacent 인접한 놈의 string 들의 집합을 return을 해보자
-	
 	public Set<String> adjacent(String v){
 		Set<String> retSet = new HashSet<String>();
 		int vi = getIndex(v);
 		for (int i=0;i<Vertices.length;i++) {
-			if (Edges[vi][i]!=0)
-				retSet.add(Vertices[i]);
+			if (Edges[vi][i]!=0) // seoul이라면 seoul과 연결되어 있는 값을 찾아서 
+				retSet.add(Vertices[i]); // set에 넣어준다.
 		}
 		return retSet;
 	}
@@ -94,6 +94,7 @@ public class GraphInMatrix {  // Vertices # is fixed, Undirected Graph in Matrix
 	
 	// 대칭을 표현한다.
 	// 방향이 없는 것을 확인할 수 있는 graph 보여주기
+	// 실제 거리를 return
 	public void showGraph2() {
 		for (int i=0; i<Vertices.length;i++) {
 			for (int j=0;j<Vertices.length;j++) {
@@ -169,7 +170,7 @@ public class GraphInMatrix {  // Vertices # is fixed, Undirected Graph in Matrix
 		gm.createGraph(cities); // cities는 fixed 되어 있어 그냥 cities만 전달하면 됨.
 		
 		for (int i=0; i<paths.length;i++)
-			gm.insertEdge(cities[paths[i][0]], cities[paths[i][1]], paths[i][2]); 
+			gm.insertEdge(cities[paths[i][0]], cities[paths[i][1]], paths[i][2]);  // 값을 넣어주기
 		
 		System.out.println(gm.adjacent("Seoul")); // seoul에 인접한 것을 확인해줘라 
 		
