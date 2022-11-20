@@ -1,7 +1,13 @@
 package class2.week4;
 
 import java.util.HashSet;
-
+/**
+ * @author chaerlo127
+ * Hashing Algorithm
+ * 같은 index의 값을 가지고 있으면 list 내의 index LinkedList 
+ * 맨 뒤 혹은 맨 앞에 key 값을 저장한다.
+ *
+ */
 //  여기서는 각 method가 nOfHops를 return 함
 // 갑이 커질 수록 Chaining이 더 효율적임.
 // worst case: O(n) -> search

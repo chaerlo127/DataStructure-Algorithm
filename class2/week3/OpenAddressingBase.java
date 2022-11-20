@@ -3,6 +3,13 @@ package class2.week3;
 import java.util.Arrays;
 import java.util.HashSet;
 
+/**
+ * @author chaerlo127
+ * 값을 입력하여 값에 따라 index가 정해지고
+ * index 내에 이미 값이 있으면 다시 index를 계산하여 
+ * 그 안에 값을넣는 방식이다. 
+ *
+ */
 public class OpenAddressingBase {
 
 	int nOfHops=0;

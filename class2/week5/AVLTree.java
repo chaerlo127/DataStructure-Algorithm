@@ -1,8 +1,13 @@
 package class2.week5;
 
-// balance tree
-// 기본 속성은 같음.
-// BST를 상속 받아서 한다. 
+/**
+ * @author chaerlo127
+ * balance tree
+ * 기본 속성은 같고 Binary Search Tree를 상속 받아서 한다. 
+ * 
+ * 균형이 깨지면 안되고, 가장 아래 노드들의 높이 차이가 1 이상 벌어지면 안된다. 
+ *
+ */
 public class AVLTree extends BST {
 
 	public AVLTree() {

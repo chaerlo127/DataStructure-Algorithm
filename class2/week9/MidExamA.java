@@ -29,7 +29,11 @@ public class MidExamA {
 	/////////////////////////////////////////////////////////////////////////
 	//fill your codes for the following method...
 	/////////////////////////////////////////////////////////////////////////
+	/**
+	 * 회고: 시험 때에는 작은 값을 생각 못함. 
+	 */
 	public void insertEdgeAscendingOrder(int c1, int c2, int dist) {
+		
 		graph[c1].num++;
 
 		Node p = graph[c1];
@@ -76,6 +80,7 @@ public class MidExamA {
 			return s;
 		int k=size-1;
 
+		// 끝에서 부터 조건에 맞는 경우까지 구함. 
 		char temp = s.charAt(size-1);
 		while (k>0 && temp>s.charAt(k-1)) {
 			temp =s.charAt(k-1);

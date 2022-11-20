@@ -2,6 +2,13 @@ package class2.week3;
 
 import java.util.HashSet;
 
+/**
+ * @author chaerlo127
+ * Hashing Algorithm
+ * 같은 index의 값을 가지고 있으면 list 내의 index LinkedList 
+ * 맨 뒤 혹은 맨 앞에 key 값을 저장한다.
+ *
+ */
 public class ChainingBase {
 
 	private class HashNode {

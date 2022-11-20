@@ -19,7 +19,7 @@ public class DisjointSet {
 		key = null;
 		rank = -1; // rank의 leaf node가 0이 되어야 하므로
 		parent = null;
-	}
+	}   
 
 	public boolean equals(DisjointSet other) {
 		if (key == other.key)

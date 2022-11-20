@@ -1,6 +1,7 @@
 package class2.week6;
 
 // 인터넷에서 서치한 Red Black Tree Code
+// 수업에서는 개념만 나가고 코드는 나가지 않았음.
 public class InternetRedBlackTree {
 
 	private static final int BLACK = 0;
