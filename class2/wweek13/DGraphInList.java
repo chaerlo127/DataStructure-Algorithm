@@ -1,12 +1,13 @@
-package class2.wweek12;
+package class2.wweek13;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
-public class DGraphInList_Assignment {
+public class DGraphInList {
 	public class Node{
 		String key;
 		int num;
@@ -32,7 +33,7 @@ public class DGraphInList_Assignment {
 	
 	// define Vertices, adjacentList, visited
 	ArrayList<String> Vertices;
-	ArrayList<MyLinkedList3<Node>> adjacentList;
+	ArrayList<LinkedList<Node>> adjacentList;
 	
 	boolean [] visited;
 			
@@ -53,7 +54,7 @@ public class DGraphInList_Assignment {
 	public void insertVertex(String v) {
 		if (!Vertices.contains(v)) {
 			Vertices.add(v);
-			adjacentList.add(new MyLinkedList3<Node>());
+			adjacentList.add(new LinkedList<Node>());
 		}
 	}
 	public void deleteVertex(String v) {

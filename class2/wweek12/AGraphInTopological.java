@@ -3,7 +3,7 @@ package class2.wweek12;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-public class AGraphInTopological extends DGraphInList_Assignment{
+public class AGraphInTopological extends DGraphInList{
 
 	public void TPSort1() {
 		String[] result = new String[Vertices.size()];
