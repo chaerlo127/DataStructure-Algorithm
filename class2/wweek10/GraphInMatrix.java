@@ -5,13 +5,12 @@ import java.util.Deque;
 import java.util.HashSet;
 import java.util.Set;
 
-// 코드를 다시 작성하는 것이라도 코드는 수업시간 그대로 제출이 되는 것이기 때문에 주석을 달아 설명으로 대체하고자 합니다.
 // list라면 vertex가 사라지고 추가되는 것을 고려할 것이다.
-// delete 시, vertex의 인접하게 정의되어 있는 노드를 저장한 edge를 지워야 한다. -> 까다로워진다. 
+// delete 시, Vertices의 인접하게 정의되어 있는 노드를 저장한 edge를 지워야 한다. -> 까다로워진다. 
 public class GraphInMatrix {  // Vertices # is fixed, Undirected Graph in Matrix
 	
-	String [] Vertices ;
-	int[][] Edges;
+	String [] Vertices ; // tree의 노드와 같은 것
+	int[][] Edges; // 노드와 연결하는 선
 	
 	boolean [] visited ; // dfs, bfs 할 때 사용
 	
@@ -29,7 +28,7 @@ public class GraphInMatrix {  // Vertices # is fixed, Undirected Graph in Matrix
 		
 	}
 	
-	// vertex의 이름을 정의했는데, 2차원 array라서 index로 해줘야 한다.
+	// Vertices의 이름을 정의했는데, 2차원 array라서 index로 해줘야 한다.
 	private int getIndex(String u) {
 		for (int i=0;i<Vertices.length;i++) {
 			if (Vertices[i].equals(u))
@@ -38,14 +37,14 @@ public class GraphInMatrix {  // Vertices # is fixed, Undirected Graph in Matrix
 		return -1; // Not Found!
 	}
 
-	// 서울에서 대전으로 가는데, 거리리가 140이라는 것을 받아서
+	// 서울에서 대전으로 가는데, 거리가 140이라는 것을 받아서
 	// 미리 만든 matrix에 저장한다. 
 	// 방향이 없다고 가정했기 때문에 두 번 저장한다. 
 	public void insertEdge(String u, String v, int dist) {
-		int ui = getIndex(u);
+		int ui = getIndex(u); // 노드의 index 수를 불러온다. 
 		int vi = getIndex(v);
 		
-		Edges[ui][vi]=dist;
+		Edges[ui][vi]=dist; // ui, vi의 노드를 간선으로 연결하고 그 거리를 작성해준다. 
 		Edges[vi][ui]=dist;
 	}
 	
@@ -68,7 +67,7 @@ public class GraphInMatrix {  // Vertices # is fixed, Undirected Graph in Matrix
 		Set<String> retSet = new HashSet<String>();
 		int vi = getIndex(v);
 		for (int i=0;i<Vertices.length;i++) {
-			if (Edges[vi][i]!=0) // seoul이라면 seoul과 연결되어 있는 값을 찾아서 
+			if (Edges[vi][i]!=0) // 자신의 index와 연결되어 있는 node를 set에 저장한다. 
 				retSet.add(Vertices[i]); // set에 넣어준다.
 		}
 		return retSet;
@@ -83,9 +82,9 @@ public class GraphInMatrix {  // Vertices # is fixed, Undirected Graph in Matrix
 	public void showGraph() {
 		for (int i=0; i<Vertices.length;i++) {
 			for (int j=0;j<Vertices.length;j++) {
-				String temp = "----------";
+				String temp = "----------"; // 값이 없는 경우 보이는 것
 				if (Edges[i][j]!=0)
-					temp=Vertices[j];
+					temp=Vertices[j]; // 하나하나 모든 경우의 수를 다 따지면서 확인을 한다. 
 				System.out.printf("%10s ",temp);
 			}
 			System.out.println();
@@ -109,6 +108,7 @@ public class GraphInMatrix {  // Vertices # is fixed, Undirected Graph in Matrix
 			visited[i] = false;
 	}
 
+	// DFS ------------------------------------------------------------------
 	public void DFS(String v) {
 		initVisited(); // initialize
 		System.out.println("\n *** DFS Recursion *** \n");
@@ -122,7 +122,9 @@ public class GraphInMatrix {  // Vertices # is fixed, Undirected Graph in Matrix
 				DFSRecursion(u);
 		System.out.println(v+" is visited ");
 	}
-
+	// ---------------------------------------------------------------------
+	
+	// BFS -----------------------------------------------------------------	
 	public void BFS(String v) {
 		initVisited();
 		System.out.println("\n *** BFS Iteration *** \n");
@@ -131,7 +133,6 @@ public class GraphInMatrix {  // Vertices # is fixed, Undirected Graph in Matrix
 
 	// level order algo 그대로
 	// 통상 iteration 으로 쓰는게 자연스러움
-	// 공부좀 하자
 	public void BFSIteration(String v) {
 		Deque<String> que = new ArrayDeque<String>();
 		visited[getIndex(v)]=true;
@@ -141,7 +142,7 @@ public class GraphInMatrix {  // Vertices # is fixed, Undirected Graph in Matrix
 		while (!que.isEmpty()) {
 			String u = que.poll();
 			
-			for (String w : adjacent(u)) {
+			for (String w : adjacent(u)) { // 인접한 노드를 모두 다 돌고 --> 다시 queue를 poll
 				int wi = getIndex(w);
 				if (!visited[wi]) {
 					visited[wi]=true;
@@ -151,7 +152,9 @@ public class GraphInMatrix {  // Vertices # is fixed, Undirected Graph in Matrix
 			}
 		}
 	}
-
+	// ----------------------------------------------------------------------
+	
+	
 	public static void main(String[] args) {
 		
 		String [] cities = { "Seoul", "Incheon", "Daejeon", "Daegu", "Kwangju", "Pusan", "Ulsan","Mokpo", "Chuncheon", "Kyeongju"};

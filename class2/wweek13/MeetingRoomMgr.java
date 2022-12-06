@@ -16,17 +16,17 @@ public class MeetingRoomMgr {
 		}
 	}
 	
-	HashSet<aRequest> requestSet;
+	HashSet<aRequest> requestSet; // 저장 순서가 유지되지 않음. => 따로 index를 저장해주는 과정이 필요
 	double closingTime;
 	
 	public MeetingRoomMgr(double [][] in, double c) {
 		requestSet = new HashSet<aRequest>();
 		int index = 0;
 		for (int i=0; i<in.length;i++) {
-			requestSet.add(new aRequest(index, in[i][0], in[i][1]));
+			requestSet.add(new aRequest(index, in[i][0], in[i][1])); // index의 값 및 start 시간, 끝나는 시간을 저장해서 set에 넣음.
 			index++;
 		}
-		closingTime= c;
+		closingTime= c; // 끝내는 시간은 c임. 
 	}
 	
 	public void showAllReq() {
@@ -40,19 +40,20 @@ public class MeetingRoomMgr {
 		System.out.print("\nStart-Time First : ");
 
 		while(timeLine<closingTime) {
-			double tempBest=closingTime;
-			double tempTimeLine=closingTime;
+			double tempBest=closingTime; // 현재 닫는 시간이 가장 베스트
+			double tempTimeLine=closingTime; // 현재 닫는 시간이 가장 베스트
 			int tempRequestId=-1;
 			for(aRequest r : requestSet) {
 				if (r.start>=timeLine && r.start<tempBest
-						&& r.finish<=closingTime) {
-					tempBest = r.start ;
-					tempRequestId = r.reqId ;
-					tempTimeLine = r.finish ;
+						&& r.finish<=closingTime) { // 시작 시간이 현재 가장 베스트인 타임 라인 시간(finish) 보다 작아야하며, 
+					// 타임 베스트의 경우 가장 베스트인 start가 작아야 하고, 끝나는 시간 또한 닫는 시간보다 작아야 함. 
+					tempBest = r.start ; // 시작 시간이 가장 좋은 베스트, 0
+					tempRequestId = r.reqId ; // 1
+					tempTimeLine = r.finish ; // timeline은 끝나는 시간인 거 같음. 7.0
 				}
 			}
-			if (tempRequestId>=0) {
-				timeLine = tempTimeLine ;
+			if (tempRequestId>=0) { // 값이 변경이 되었다면
+				timeLine = tempTimeLine;
 				System.out.print("  "+tempRequestId);
 			}
 		}
@@ -63,20 +64,21 @@ public class MeetingRoomMgr {
 		System.out.print("\nFinish-Time First : ");
 
 		while(timeLine<closingTime) {
-			double tempBest=closingTime;
-			double tempTimeLine=closingTime;
+			double tempBest=closingTime; // 현재 닫는 시간이 가장 베스트
+			double tempTimeLine=closingTime; // 현재 닫는 시간이 가장 베스트
 			int tempRequestId=-1;
 			for(aRequest r : requestSet) {
 				if (r.start>=timeLine && r.finish<=tempBest
-						&& r.finish<=closingTime) {
+						&& r.finish<=closingTime) {// 시작 시간이 현재 가장 베스트인 타임 라인 시간(finish) 보다 작아야하며, 
+					// 타임 베스트의 경우 가장 베스트인 finish 보다 작아야 하고, 끝나는 시간 또한 닫는 시간보다 작아야 함. 
 					tempBest = r.finish ;
 					tempRequestId = r.reqId ;
 					tempTimeLine = r.finish ;
 				}
 			}
 			if (tempRequestId>=0) {
-				timeLine = tempTimeLine ;
-				System.out.print("  "+tempRequestId);
+				timeLine = tempTimeLine;
+				System.out.print("  "+tempRequestId); // index 값을 print
 			}
 		}
 	}
@@ -89,8 +91,8 @@ public class MeetingRoomMgr {
 		MeetingRoomMgr me = new MeetingRoomMgr(input, 12);
 		me.showAllReq();
 		
-		me.startTimeFirst();
-		me.finishTimeFirst();
+		me.startTimeFirst(); // 시작 시간이 가장 이른
+		me.finishTimeFirst(); // 끝내는 시간이 가징 이른
 
 	}
 

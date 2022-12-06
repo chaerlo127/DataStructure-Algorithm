@@ -47,7 +47,6 @@ public class GraphInList {// Vertices # is fixed, Undirected Graph in List
 				return i;
 		}
 		return -1;
-
 	}
 	
 	public void insertVertex(String v) {

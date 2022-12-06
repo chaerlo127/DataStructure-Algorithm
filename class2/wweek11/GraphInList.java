@@ -33,6 +33,8 @@ public class GraphInList {// Vertices # is fixed, Undirected Graph in List
 	}
 	
 	// define Vertices, adjacentList, visited
+	// vertices : node와 같은 것
+	// adjacentList: node의 인접한 결과를 나타내는 것
 	ArrayList<String> Vertices;
 	ArrayList<LinkedList<Node>> adjacentList;
 	boolean [] visited;
@@ -49,7 +51,7 @@ public class GraphInList {// Vertices # is fixed, Undirected Graph in List
 		return -1;
 	}
 	
-	 // 새로운 것이면 추가해주고 아니면 무시해주도록
+	 // 새로운 것이면 Node를 추가해주고, adjacentList을 추가해줌.
 	public void insertVertex(String v) {
 		if(!Vertices.contains(v)) {
 			Vertices.add(v);
@@ -59,7 +61,7 @@ public class GraphInList {// Vertices # is fixed, Undirected Graph in List
 	
 	/*
 	 * 추가적
-	 * 3의 linkedlist를 보면서 linkedlist에 1이 포함되어 있으면 1한테 가서 3지워라, 2가 포함되어 있으면 2한테가서 3지워라
+	 * 3의 linkedlist를 보면서 linkedlist에 1이 포함되어 있으면 1의 adjacentList로 가서 3지워라, 2가 포함되어 있으면 2의 adjacentList로 가서 3지워라
 	 * */
 	public void deleteVertex(String v) {
 		int vi = getIndex(v); // Vertices.indexOf(v)
@@ -102,6 +104,8 @@ public class GraphInList {// Vertices # is fixed, Undirected Graph in List
 		
 	}
 	
+	// 자신의 노드와 가까운 것을 저장하고 return 
+	// adjacentList의 경우, insert Edge, Vertex 할 때 추가가 됨.
 	public Set<String> adjacent(String v){
 		Set<String> retSet = new HashSet<String>();
 		int vi = getIndex(v);
@@ -133,10 +137,13 @@ public class GraphInList {// Vertices # is fixed, Undirected Graph in List
 		DFSRecursion(v);
 	}
 	
+	// 대부분의 경우 DFS는 Recursion을 진행
+	// DFS는 pre-Order와 같은 방식
 	private void DFSRecursion(String v) {
 		visited[getIndex(v)] = true;
-		for(String u:adjacent(v)) { // 인접한 모든 String u에 대해서 거쳐 가지 않은 것이라면
-			if(!visited[getIndex(u)]) DFSRecursion(u);
+		for(String u:adjacent(v)) { // 인접한 모든 String u에 대해서 
+			if(!visited[getIndex(u)]) DFSRecursion(u); // 거쳐 가지 않은 것이라면 그 곳으로 들어가 같은 방법을 반복함
+			// 마지막인 Node라면 다시 recursion을 통해서, return 을 계속 거치면서 계싼을 수행함.
 		}
 		System.out.println(v + " is visited"); // 어떤 작업을 한다. 내 차례가 왔다. 
 	}
@@ -147,6 +154,8 @@ public class GraphInList {// Vertices # is fixed, Undirected Graph in List
 		BFSIteration(v);
 	}
 
+	// BFS는 대부분 Iteration을 진행
+	// level-order와 같은 방식
 	public void BFSIteration(String v) {
 		Deque<String> que = new ArrayDeque<String>();
 		visited[getIndex(v)]=true;
@@ -154,14 +163,14 @@ public class GraphInList {// Vertices # is fixed, Undirected Graph in List
 		que.add(v);
 
 		while (!que.isEmpty()) {
-			String u = que.poll();
+			String u = que.poll(); // 가장 앞에 있는 값을 뺌
 			
 			for (String w : adjacent(u)) {
-				int wi = getIndex(w);
+				int wi = getIndex(w); // Set에 저장된 값을 뽑아서, 인접한 값들을 set에 저장함.
 				if (!visited[wi]) {
 					visited[wi]=true;
 					System.out.println(w+" is visited ");
-					que.add(w);
+					que.add(w); // visited 된 index를 넣어둠. set을 뺐을 때 인접한 값을 호출하기 위해. 
 				}
 			}
 		}

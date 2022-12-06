@@ -34,28 +34,32 @@ public class DijkstraSP2 extends DGraphInList {
 		BFSSP(Vertices.get(r));
 	}
 
+	// level order traverse로 나타냄. 
 	public void BFSSP(String s) {
 		Deque<String> que = new ArrayDeque<String>();
-		visited[Vertices.indexOf(s)]=true;
+		visited[Vertices.indexOf(s)]=true; // 현재 s는 방문을 함.
 //		System.out.println(s+" is visited ");
 		que.add(s);
 		
-		while (!que.isEmpty()) {
+		while (!que.isEmpty()) { 
 			String u= que.poll();
 			int iu = Vertices.indexOf(u);
 			for (String v : adjacent(u))  {
 
-				int iv = Vertices.indexOf(v);
+				int iv = Vertices.indexOf(v); // v의 가중치, 대부분 도착을 하지 않았다면 값은 무한임.
 				
-				if (d[iv]>d[iu]+getWeight(u,v)) {
-						d[iv]=d[iu]+getWeight(u,v);
-						prev[iv]=u;
+				if (d[iv]>d[iu]+getWeight(u,v)) { // v의 가중치보다 현재 u 의 가중치 및 최소 거리를 더한 것이 더 작다면
+						d[iv]=d[iu]+getWeight(u,v); // iv node 내 값을 변경해줘야 함. 
+						prev[iv]=u; // iv의 앞 노드는 u라는 것을 저장 함.
 					}
 //					System.out.println(v+" 's distance is updated ");
-					que.add(v);
+					que.add(v); // v를 더해줌
 				}
 			}
 	}
+	
+	// dfs 필요할거 같은데요,,,
+	
 	
 	public void showShortestPath() {
 		for (int i=0; i<Vertices.size(); i++)	{
