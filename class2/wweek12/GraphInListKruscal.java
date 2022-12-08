@@ -13,6 +13,7 @@ import java.util.LinkedList;
  *  */
 
 //현재 GraphInList를 상속 받아서 사용
+// 가중치를 확인하여 인접하지 않더라도, 가장 작은 가중치를 가지고 있는 노드들의 집합끼리 묶어서 저장하고 이를 합치는 과정으로 최소 신장 트리 개념을 적용한다.
 public class GraphInListKruscal extends GraphInList {
 
 	public class EdgeElement {
@@ -63,7 +64,8 @@ public class GraphInListKruscal extends GraphInList {
 	}
 
 	
-	// 이미 insert edge 할 때부터 정렬을 먼저 해줌.
+	// 이미 insert edge 할 때부터 정렬을 해서 보여줌.
+	// 가중치가 적은 노드끼리 먼저 집합을 생성해야 하기 때문
 	private void sortInsert(EdgeElement newEdge) {
 		int index = 0;
 		Iterator<EdgeElement> iter = Q.iterator();
@@ -85,14 +87,14 @@ public class GraphInListKruscal extends GraphInList {
 	}
 
 	public void MSTKruscal() {
-		initKruscal();
+		initKruscal(); // 자신 하나를 갖고 있는 노드를 생성한다. 
 		System.out.println("\n[Minimal Spaning Tree : Kruscal]\n");
 
 		while (T.size() < Vertices.size() - 1) { // 최소 신장 트리
 			// 넘어서면 graph가 사이클을 갖게 됨.
 			EdgeElement euv = Q.remove(0); // 첫 번째 것을 지우고 return
 
-			if (findSet(euv.from) != findSet(euv.to)) { // 집합의 처음과 끝이 같지 않다면 (처음과 끝이 내가 아니라면)
+			if (findSet(euv.from) != findSet(euv.to)) { // 집합의 처음과 끝이 같지 않다면 (처음과 끝이 내가 아니라면) 즉, 사이클이 발생하지 않는다면?
 				union(euv.from, euv.to); // 합침
 				System.out.println(euv + "  is selected");
 				T.add(euv);
@@ -103,6 +105,7 @@ public class GraphInListKruscal extends GraphInList {
 
 	}
 
+	// 노드들의 집합을 확인하여, 원소를 갖고 있는 것의 문자 값 중 갖아 앞에 있는 부모를 찾아냄. 
 	private String findSet(String s) {
 		String p = parent.get(getIndex(s));
 		if (p == s)

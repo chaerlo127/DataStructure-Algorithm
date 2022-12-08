@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 
+// 이동된 노드의 값은 변경이 되지 않음. 따라서, S에 지나온 값을 저장한 다음 V에서 빼는 것임.
+// 기존의 Prim에서 가중치의 값들을 더한 것을 노드에 적어둔 것 -> 프림과 결과 값이 같을 수도 있고 다를 수도 있음
 public class DijkstraSP extends DGraphInList {
 	int[] d; // distance;
 	int r = -1; // start node
@@ -40,11 +42,12 @@ public class DijkstraSP extends DGraphInList {
 			for (String v : adjacent(u)) { // L(u) == adjacent(u), u에 인접한 곳들을 찾아서
 				HashSet<String> temp = diff(V, S);// u가 S에 새로 추가되었기에, 새로 v를 업데이트함
 				int wuv = getWeight(u, v); // u와 v 사이의 가중치 찾기
-				int dv = d[Vertices.indexOf(v)]; //v의 현재 최소거리
+				int dv = d[Vertices.indexOf(v)]; // v의 현재 최소거리
 
-				int du = d[Vertices.indexOf(u)]; // u의 현재 최소거리, 한 번도 도착하지 않았다면 내부 저장 값은 무한 임.
+				int du = d[Vertices.indexOf(u)]; // u의 현재 최소거리, 한 번도 도착하지 않았다면 내부 저장 값은 무한(9999) 임.
 
-				if (temp.contains(v) && (du + wuv) < dv) { // temp에 v가 포함되어 있으며, du + 가중치를 더한 것이 v의 최소거리보다 작다면 값을 새롭게 변경해줘야 함.
+				if (temp.contains(v) && (du + wuv) < dv) { // temp에 v가 포함되어 있으며, du + 가중치를 더한 것이 v의 최소거리보다 작다면
+															// 값을 새롭게 변경해줘야 함.
 					d[Vertices.indexOf(v)] = du + wuv; // du + wuv가 가장 최소 값
 					prev[Vertices.indexOf(v)] = u; // 현재 v의 이전 값은 u로 저장함.
 				}
@@ -65,7 +68,7 @@ public class DijkstraSP extends DGraphInList {
 		}
 	}
 
-	private int getWeight(String u, String v) { // 가중치 구하기 
+	private int getWeight(String u, String v) { // 가중치 구하기
 		int ui = getIndex(u);
 		LinkedList<Node> aList = adjacentList.get(ui); // ui와 인접한 노드 구하기
 

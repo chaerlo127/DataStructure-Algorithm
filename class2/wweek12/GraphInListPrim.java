@@ -11,6 +11,7 @@ import java.util.HashSet;
  * 5. 모두 연결이 되어있어야 함.
  */
 // 현재 GraphInList를 상속 받아서 사용
+// [인접한 것]들의 최소 값을 찾아서 한다. 
 public class GraphInListPrim extends GraphInList {
 
 	HashSet<String> V, S;
@@ -43,11 +44,11 @@ public class GraphInListPrim extends GraphInList {
 			for (String v : adjacent(u)) { // L(u) == adjacent(u)
 				// u와 인접한 모든 node를 확인해서
 				HashSet<String> temp = diff(V, S);
-				int wuv = getWeight(u, v); // 현재 자신과 인접한 모든 것들을 비교
-				int dv = d[Vertices.indexOf(v)]; // 현재 vertices의 가중치
+				int wuv = getWeight(u, v); // 현재 자신과 인접한 모든 것들을 비교 (u와 v를 비교)
+				int dv = d[Vertices.indexOf(v)]; // 현재 vertices의 가중치, for문을 돌고 잇는 인접한 곳의 가중치 
 				if (temp.contains(v) && wuv < dv)
-					// 이미 지나간 vertex를 지운 것들 중에서 인접한 v가 V안에 포함되어있으며, 이미 저장된 가중치보다 새로운 길이의 가중치가 더 적은
-					// 경우에는
+					// vertex의 집합 중 이미 지나간 vertex를 지운 것들 중에서 v가 vertex 집합에 아직 포함이 되고, 
+					// 이미 저장된 가중치보다 새로운 길이의 가중치가 더 적은 경우에는
 					d[Vertices.indexOf(v)] = wuv; // 값을 바꾼다.
 			}
 		}

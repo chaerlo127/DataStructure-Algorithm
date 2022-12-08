@@ -5,17 +5,18 @@ import java.util.LinkedList;
 
 /**
  * 진출만 있을 때 시작이며, 진입만 있다면 끝. 사이클이 없는 유향 그래프
- *
+ * 그래프가 있고, 유향이라면 이를 한 줄로 나열하되, sorting 하게 나열을 해야함. 
  */
 
 // 유향 그래프를 상속 받음. 
 public class AGraphInTopological extends DGraphInList {
 
+	// 기본적인 Iteration을 활용한 코드
 	public void TPSort1() {
 		String[] result = new String[Vertices.size()];
 		int nOfVertices = Vertices.size();
 		for (int i = 0; i < nOfVertices; i++) {
-			result[i] = getNextNode(); // 끝에서 부터 지워줌, 진입만 있고 진출이 없는 것을 찾아서 넣고 삭제. 
+			result[i] = getNextNode(); // 끝에서 부터 지워줌, 진입만 있고 진출이 없는 것을 찾아서 넣고 삭제. 즉, 부모는 있고 자식은 없는 마지막과 같은 존재
 			deleteVertex(result[i]);
 			showGraph();
 		}
@@ -33,7 +34,9 @@ public class AGraphInTopological extends DGraphInList {
 			int nOfIncoming = 0;
 			for (int j = 0; j < Vertices.size(); j++) {
 				for (int k = 0; k < adjacentList.get(j).size(); k++) {
-					if (adjacentList.get(j).get(k).key.equals(Vertices.get(i))) nOfIncoming++; // 이웃한 node에 저장된 vertex를 하나 씩 살펴봐서 값이 같으면 +1한다.
+					if (adjacentList.get(j).get(k).key.equals(Vertices.get(i))) nOfIncoming++; 
+					// 현재 vertex 리스트의 값과 각 vertex 내의 인접 한 노드들의 값이 같다면 +1한다.
+					// + 1이 없다면 자식으로 갖고 있는 연결된 진출 노드가 없는 것이다. 
 				}
 			}
 
@@ -56,15 +59,17 @@ public class AGraphInTopological extends DGraphInList {
 		}
 	}
 
+	//getNextNode을 사용하지 않고서도 진입만있고 진출은 없는 노드를 확인 할 수 있다. -> recursion
 	private LinkedList<String> dfsTS(boolean[] visited, String s, LinkedList<String> R) {
-		visited[Vertices.indexOf(s)] = true;
+		visited[Vertices.indexOf(s)] = true; // 방문을 했다!
 		for (String x : adjacent(s)) {
-			if (visited[Vertices.indexOf(x)] == false)
+			if (visited[Vertices.indexOf(x)] == false) // 인접한 노드들이 방문을 하지 않은 경우 recursion
 				dfsTS(visited, x, R);
 		}
 
 		System.out.println(s + " is added a the first");
-		R.addFirst(s); // recursion의 마지막 부분으로 인식한 원소를 넣어줌. 
+		R.addFirst(s); // recursion의 마지막 부분으로 인식한 원소를 넣어줌. 진입은 있는데, 진출은 업는 노드를 구했으므로 이에 대해 print를 해주고 recursion이기 때문에 
+		// 그 앞에 있는 노드들을 print 해줌
 		return R;
 	}
 

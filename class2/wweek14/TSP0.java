@@ -27,7 +27,7 @@ public class TSP0 {
 				int dist = calcDist(path);
 				System.out.print("Path found ");
 				for (int j = 0; j<adjacentMatrix.length; j++)
-					System.out.print("-"+path[j]);
+					System.out.print("-"+path[j]); // 여태까지 지나온 경로를 print path는 아래 for문 벗어난 하위 if 문에서 저장이 되어 있음
 				System.out.print(" distance = "+dist);
 				System.out.println();
 				if (dist<min)

@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashSet;
 import java.util.Set;
-
-
 // 과제
+
+// 유향 그래프
 public class DGraphInList {
 	public class Node{
 		String key;

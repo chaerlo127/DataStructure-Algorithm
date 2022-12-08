@@ -45,8 +45,8 @@ public class MeetingRoomMgr {
 			int tempRequestId=-1;
 			for(aRequest r : requestSet) {
 				if (r.start>=timeLine && r.start<tempBest
-						&& r.finish<=closingTime) { // 시작 시간이 현재 가장 베스트인 타임 라인 시간(finish) 보다 작아야하며, 
-					// 타임 베스트의 경우 가장 베스트인 start가 작아야 하고, 끝나는 시간 또한 닫는 시간보다 작아야 함. 
+						&& r.finish<=closingTime) { // 시작 시간이 현재 가장 베스트인 타임 라인 시간(finish) 보다 뒷 순서므로 느려야 하며, 
+					// 타임 베스트의 경우 가장 베스트 시간의 start가 작아야 하고, 끝나는 시간 또한 닫는 시간보다 작아야 함. 
 					tempBest = r.start ; // 시작 시간이 가장 좋은 베스트, 0
 					tempRequestId = r.reqId ; // 1
 					tempTimeLine = r.finish ; // timeline은 끝나는 시간인 거 같음. 7.0
@@ -69,8 +69,8 @@ public class MeetingRoomMgr {
 			int tempRequestId=-1;
 			for(aRequest r : requestSet) {
 				if (r.start>=timeLine && r.finish<=tempBest
-						&& r.finish<=closingTime) {// 시작 시간이 현재 가장 베스트인 타임 라인 시간(finish) 보다 작아야하며, 
-					// 타임 베스트의 경우 가장 베스트인 finish 보다 작아야 하고, 끝나는 시간 또한 닫는 시간보다 작아야 함. 
+						&& r.finish<=closingTime) {// 시작 시간이 현재 가장 베스트인 타임 라인 시간(finish) 보다 뒷 순서로 느려야 하며, 
+					// 타임 베스트의 경우 가장 베스트 시간의 finish 보다 작아야 하고, 끝나는 시간 또한 닫는 시간보다 작아야 함. 
 					tempBest = r.finish ;
 					tempRequestId = r.reqId ;
 					tempTimeLine = r.finish ;

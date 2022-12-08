@@ -64,7 +64,7 @@ public class BellmanFordSP extends DGraphInList {
 	}
 
 	public void ShortestPath() {
-		// 다익스트라에 있던 S가 없는 이유는 모든 verties를 다 돌아야하기 때문에 한 번 진행한 위치도 다시 가서 최소거리인지 확인해야 하기 때문
+		// 다익스트라에 있던 S가 없는 이유는 모든 verties를 다 돌아야하기 때문에(음의 변수가 있어서) 한 번 진행한 위치도 다시 가서 최소거리인지 확인해야 하기 때문
 		for (int i = 0; i < Vertices.size() - 1; i++) { // N-1 times, n까지 진행하면 사이클이 발생할 수 있음.
 			System.out.println(">>> " + i + " -th iteration");
 			for (EdgeElement e : edgeList) { // for all edges

@@ -60,6 +60,10 @@ public class DijkstraSP2 extends DGraphInList {
 	
 	// dfs 필요할거 같은데요,,,
 	
+	public void DFSSP(String s) {
+		
+	}
+	
 	
 	public void showShortestPath() {
 		for (int i=0; i<Vertices.size(); i++)	{
