@@ -40,6 +40,7 @@ public class Hamiltonian {
 				path[count]=i;
 				count++;
 				findAllPath(i, visited, path, end, count);
+				//----------------------------------------
 				visited[i]=false; // 방문 했던 경우를 모두 다 지워야 하기 때문에, 모든 경우를 다 나열 할 때 다 지우고 다시 사용해야 하기 때문
 				// 변경했던 코드를 recursion을 하면서 변경
 				count--;
